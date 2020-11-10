@@ -3,31 +3,7 @@ import Carts from './Carts';
 import Sub from './Sub'
 import '../css/styles-carts.css'
 export default class Home extends Component {
-/*
-    constructor(props) {
-        super(props)
-        this.state = {
-            archivos: []
-        }
-    }
-    subirArchivos = (e) => {
-        this.setState({ archivos: e })
-    }
-    insertarArcivos = async () => {
-        const ar = this.state.archivos;
-        console.log(ar[0])
-        await axios.post("http://localhost:8080/upload", ar[0])
-            .then(res => {
-                console.log(res.data)
-            }).catch(err => {
-                console.log(err)
-            })
-   }
-            <input type="file" onChange={(e) => this.subirArchivos(e.target.files)} />
-                    <br />
-                    <button onClick={() => this.insertarArcivos()}>subir</button>
 
-*/
     render() {
         return (
             <div>
