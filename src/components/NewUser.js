@@ -1,5 +1,5 @@
 import { Component } from 'react'
-
+import axios from 'axios'
 
 const emailRegex = RegExp(
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -77,10 +77,27 @@ export default class NewUser extends Component {
         
     }
 
-    onSubmit = () => {
+     onSubmit = async (e) => {
+        e.preventDefault();
         const state = this.state
+        let newUser = new FormData();
+            newUser.append('Nombre', state.nombre + state.apellido)
+            newUser.append('Correo', state.email)
+            newUser.append('Foto', "")
+            newUser.append('Clave', state.password)
         if (formValid(state)){
-            console.log(state)        
+
+            await axios.put('http://localhost:8080/registro',{
+                header: {
+                    'Content-Length': 1000,
+                    'Host': "127.0.0.0.1"
+                },
+                newUser
+            }
+                
+            ).then((e) =>{
+                console.log(e.data)
+            })        
         }
         else {
             console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
