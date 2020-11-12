@@ -80,21 +80,29 @@ export default class NewUser extends Component {
      onSubmit = async (e) => {
         e.preventDefault();
         const state = this.state
-        let newUser = new FormData();
-            newUser.append('Nombre', state.nombre + state.apellido)
-            newUser.append('Correo', state.email)
-            newUser.append('Foto', "")
-            newUser.append('Clave', state.password)
+        let data = new FormData();
+            data.append('Nombre', state.nombre + state.apellido)
+            data.append('Correo', state.email)
+            data.append('Foto', "")
+            data.append('Clave', state.password)
+       /* const data = {
+            'Nombre': state.nombre + state.apellido,
+            'Correo': state.email,
+            'Foto': state.email,
+            'Clave': state.password
+        }*/
         if (formValid(state)){
 
-            await axios.put('http://localhost:8080/registro',{
+            axios.put('http://localhost:8080/registro/', 
+                data
+            ,{
                 header: {
                     'Content-Length': 1000,
-                    'Host': "127.0.0.0.1"
-                },
-                newUser
+                    'Host': "127.0.0.0.1",
+                    'Origin': 'http://localhost:3000',
+                    'Content-Type': 'application/json'
+                }            
             }
-                
             ).then((e) =>{
                 console.log(e.data)
             })        
