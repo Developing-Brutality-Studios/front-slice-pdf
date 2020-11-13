@@ -80,21 +80,23 @@ export default class NewUser extends Component {
      onSubmit = async (e) => {
         e.preventDefault();
         const state = this.state
-        let data = new FormData();
+        /*let data = new FormData();
             data.append('Nombre', state.nombre + state.apellido)
             data.append('Correo', state.email)
             data.append('Foto', "")
-            data.append('Clave', state.password)
-       /* const data = {
-            'Nombre': state.nombre + state.apellido,
-            'Correo': state.email,
-            'Foto': state.email,
-            'Clave': state.password
-        }*/
+            data.append('Clave', state.password)*/
+            const data = {
+                'Nombre': state.nombre + state.apellido,
+                'Correo': state.email,
+                'Foto': state.email,
+                'Clave': state.password
+            }
+        const user = JSON.stringify(data) 
+        
         if (formValid(state)){
 
             axios.put('http://localhost:8080/registro/', 
-                data
+                user
             ,{
                 header: {
                     'Content-Length': 1000,

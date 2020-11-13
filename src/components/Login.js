@@ -1,12 +1,13 @@
 import {Component} from 'react'
 import '../css/styles-login.css';
+import axios from 'axios';
 import { Link} from 'react-router-dom'
 export default class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
             username: '',
-            passwoed: ''
+            password: ''
         }
     }
     onImputChanges = (e) => {
@@ -16,10 +17,33 @@ export default class Login extends Component {
         e.preventDefault();        
     }
 
-    onSubmit = () =>{
-        const state = this.state
-        console.log(state.passwoed)
-        console.log(state.username)
+    onSubmit = (e) =>{
+        e.preventDefault();
+        const stat = this.state
+
+        const data = {            
+                'Correo': stat.username,               
+                'Clave': stat.password
+            }
+        
+        const user = JSON.stringify(data)     
+            
+            axios.put('http://localhost:8080/iniciosesion', 
+                user
+                ,{
+                    header: {
+                        'Content-Length': 1000,
+                        'Host': "127.0.0.0.1",
+                        'Origin': 'http://localhost:3000',
+                        'Content-Type': 'application/json'
+                    }            
+                }
+            ).then((e) =>{
+                console.log('echo')
+                console.log(e.data)
+            })
+        
+        
     }
     
     render(){
