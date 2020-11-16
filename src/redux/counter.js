@@ -1,9 +1,10 @@
 import {connect} from 'react-redux';
-import Header from '../components/Header'
+import Login from '../components/Login'
 const mapStateToProps = state => {
     return{ counter: state.counter}
 }
 const mapDispatchToProps = dispatch => {
+    
     return {
         setToken: () => dispatch({ type: 'SET'})
     }
@@ -14,6 +15,6 @@ const createConnection = connect(
     mapDispatchToProps
 )
 
-const ComponentWithConnectionToRedux = createConnection(Header)
+const ComponentWithConnectionToRedux = createConnection(Login)
 
 export default ComponentWithConnectionToRedux

@@ -39,8 +39,7 @@ export default class Login extends Component {
             ).then((e) =>{                                
                 localStorage.setItem('Session', e.data.Value);
                 this.stateToken()
-                return <Header token={this.state.token} />
-
+                return <Header ll={this.props.setToken}/>              
             }).catch(function (error) {
                 console.log(error);
               }); 
