@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 
 const emailRegex = RegExp(
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -29,6 +30,7 @@ export default class NewUser extends Component {
             nombre: '',
             apellido: '',
             email: '',
+            token: localStorage.getItem('Session'),
             password: '',
             formErrors: {
                 nombre: '',
@@ -44,8 +46,8 @@ export default class NewUser extends Component {
 
         const { name, value } = e.target;
         let formErrors = { ...this.state.formErrors };
-        
-        
+
+
 
         switch (name) {
 
@@ -74,95 +76,99 @@ export default class NewUser extends Component {
                 break;
         }
         this.setState({ formErrors, [name]: value });
-        
+
     }
 
-     onSubmit = async (e) => {
+    onSubmit = async (e) => {
         e.preventDefault();
         const state = this.state
-        /*let data = new FormData();
-            data.append('Nombre', state.nombre + state.apellido)
-            data.append('Correo', state.email)
-            data.append('Foto', "")
-            data.append('Clave', state.password)*/
-            const data = {
-                'Nombre': state.nombre + state.apellido,
-                'Correo': state.email,
-                'Foto': state.email,
-                'Clave': state.password
-            }
-        const user = JSON.stringify(data) 
-        
-        if (formValid(state)){
+        const login = {
+            'Correo': state.email,
+            'Clave': state.password
+        }
+        const data = {
+            'Nombre': state.nombre + state.apellido,
+            'Correo': state.email,
+            'Foto': state.email,
+            'Clave': state.password
+        }
+        const user = JSON.stringify(data)
 
-            axios.put('http://localhost:8080/registro/', 
-                user
-            ,{
-                header: {
-                    'Content-Length': 1000,
-                    'Host': "127.0.0.0.1",
-                    'Origin': 'http://localhost:3000',
-                    'Content-Type': 'application/json'
-                }            
-            }
-            ).then((e) =>{
-                console.log(e.data)
-            })        
+        if (formValid(state)) {
+            const log = JSON.stringify(login)
+            axios.put('http://localhost:8080/registro/',
+                log
+            ).then((e) => {
+                if (e.data.id) {
+                    axios.put('http://localhost:8080/iniciosesion',
+                        user
+                    ).then((e) => {
+                        localStorage.setItem('Session', e.data.Value);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
         else {
             console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
         }
-        
+
     }
 
     render() {
         const { formErrors } = this.state;
-        return (
-            <form className="box" onSubmit={this.onSubmit}>
-                <h2>Loging</h2>
-                <div>
-                    <input
-                        onChange={this.onImputChanges}
-                        type="text" name="nombre"
-                        placeholder="Nombre"
-                        className={formErrors.nombre.length < 3 ? "error" : null}
-                    />
-                    {formErrors.nombre.length > 3 && (
-                        <p id="emailHelp" className="errorMessage ">{formErrors.nombre}</p>
-                    )}
-                    
-                </div>
-                <div>
-                    <input 
-                        onChange={this.onImputChanges}
-                        type="text" name="apellido"
-                        placeholder="Apellido"
-                        className={formErrors.apellido.length < 3 ? "error" : null} />
-                    {formErrors.apellido.length > 3 && (
-                        <p id="emailHelp" className="errorMessage ">{formErrors.apellido}</p>
-                    )}
-                </div>
-                <div>
-                    <input onChange={this.onImputChanges}
-                        type="text" name="email"
-                        placeholder="Email"
-                        className={formErrors.email.length > 3 ? "error" : null} />
-                    {formErrors.email.length > 3 && (
-                        <p id="emailHelp" className="errorMessage ">{formErrors.email}</p>
-                    )}
-                </div>               
-                <div>
-                    <input onChange={this.onImputChanges}
-                        type="password" name="password"
-                        placeholder="Password"
-                        className={formErrors.password.length > 3 ? "error" : null} />
-                    {formErrors.password.length > 3 && (
-                        <p id="emailHelp" className="errorMessage ">{formErrors.password}</p>
-                    )}
-                </div>         
+        if (!this.state.token) {
+            return (
+                <form className="box" onSubmit={this.onSubmit}>
+                    <h2>Loging</h2>
+                    <div>
+                        <input
+                            onChange={this.onImputChanges}
+                            type="text" name="nombre"
+                            placeholder="Nombre"
+                            className={formErrors.nombre.length < 3 ? "error" : null}
+                        />
+                        {formErrors.nombre.length > 3 && (
+                            <p id="emailHelp" className="errorMessage ">{formErrors.nombre}</p>
+                        )}
 
-                <button type="submit" value="Login">Loging</button>
-            </form>
-        )
+                    </div>
+                    <div>
+                        <input
+                            onChange={this.onImputChanges}
+                            type="text" name="apellido"
+                            placeholder="Apellido"
+                            className={formErrors.apellido.length < 3 ? "error" : null} />
+                        {formErrors.apellido.length > 3 && (
+                            <p id="emailHelp" className="errorMessage ">{formErrors.apellido}</p>
+                        )}
+                    </div>
+                    <div>
+                        <input onChange={this.onImputChanges}
+                            type="text" name="email"
+                            placeholder="Email"
+                            className={formErrors.email.length > 3 ? "error" : null} />
+                        {formErrors.email.length > 3 && (
+                            <p id="emailHelp" className="errorMessage ">{formErrors.email}</p>
+                        )}
+                    </div>
+                    <div>
+                        <input onChange={this.onImputChanges}
+                            type="password" name="password"
+                            placeholder="Password"
+                            className={formErrors.password.length > 3 ? "error" : null} />
+                        {formErrors.password.length > 3 && (
+                            <p id="emailHelp" className="errorMessage ">{formErrors.password}</p>
+                        )}
+                    </div>
+
+                    <button type="submit" value="Login">Loging</button>
+                </form>
+            )
+        }
+        return <Redirect to="/" />;
     }
 }
