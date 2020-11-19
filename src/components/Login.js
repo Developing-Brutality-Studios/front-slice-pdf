@@ -1,65 +1,79 @@
-import {Component} from 'react'
+import { useState } from 'react'
 import '../css/styles-login.css';
 import axios from 'axios';
-import Header from './Header';
-
+import { useDispatch } from 'react-redux'
+import { postAdded } from '../redux/reducer'
 import { Link, Redirect } from 'react-router-dom'
-export default class Login extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            username: '',
-            password: '',
-            token: null
-        }
-    }
-    onImputChanges = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-        e.preventDefault();        
-    }
-    stateToken = () =>{
-        this.setState({token:localStorage.getItem('Session')})
-    }
 
-    onSubmit = (e) =>{
+const connect = async (username, password) => {
+    var token = ''
+    const data = {
+        'Correo': username,
+        'Clave': password
+    }
+    const user = JSON.stringify(data)
+
+    await axios.put('http://localhost:8080/iniciosesion',
+        user
+    ).then((e) => {
+        localStorage.setItem('Session', e.data.Value);        
+    }).catch(function (error) {
+        console.log(error);
+    }).then(() =>{
+        token = localStorage.getItem('Session')
+    })
+    
+
+    return token
+}
+
+
+const Login = () => {
+
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [token, setToken] = useState('')
+
+   
+    const dispatch = useDispatch()
+
+    const onUsernameChanged = e => setUsername(e.target.value)
+    const onPasswordChanged = e => setPassword(e.target.value)
+
+
+    const onSubmit = async (e) => {
         e.preventDefault();
-        const stat = this.state
-
-        const data = {            
-                'Correo': stat.username,               
-                'Clave': stat.password
-            }
-        
-        const user = JSON.stringify(data)     
-            
-            axios.put('http://localhost:8080/iniciosesion', 
-                user              
-            ).then((e) =>{                                
-                localStorage.setItem('Session', e.data.Value);
-                this.stateToken()
-                return <Header ll={this.props.setToken}/>              
-            }).catch(function (error) {
-                console.log(error);
-              }); 
-        
-        
+        const ll = await connect(username, password)             
+        setToken( ll  )
     }
     
-    render(){
-        if (!this.state.token){
-            return (
-                <form className="box" onSubmit={this.onSubmit}>
-                    <h2>Loging</h2>                                                
-                    <input onChange={this.onImputChanges} type="text" name="username" placeholder="Username"/>                        
-                    <input onChange={this.onImputChanges} type="password" name="password" placeholder="Password"/>   
-                    <button type = "submit" value="Login">Loging</button> 
-                    <Link to='./newUser'><h3>Nuevo usuario</h3></Link>
-                </form>      
-            )
-        }
-        return <Redirect to="/" />;
-       
+
+    if (token === "") {
+        return (
+            <form className="box" onSubmit={onSubmit}>
+                <h2>Loging</h2>
+                <input onChange={onUsernameChanged} type="text" name="username" placeholder="Username" />
+                <input onChange={onPasswordChanged} type="password" name="password" placeholder="Password" />
+                <button type="submit" value="Login">Loging</button>
+                <Link to='./newUser'><h3>Nuevo usuario</h3></Link>
+            </form>
+
+        )
+    } else {
+        
+        dispatch(
+            postAdded({
+                token: token,
+                username: username,
+                password:password
+            })
+        )
+        return (<Redirect to='/' />)
     }
+
+
+
+
 }
+
+export default Login

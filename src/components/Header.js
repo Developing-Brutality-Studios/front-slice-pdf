@@ -1,48 +1,55 @@
-import { Component } from 'react';
-
+//import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import { faAlignJustify } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { postUpdated } from '../redux/reducer'
 import '../css/styles-nav.css'
-export default class Header extends Component {
-    constructor(props){
-        super(props);
-        this.state = {           
-            token: localStorage.getItem('Session')
-        }
-        console.log(this.state.token)               
-    }
-    token = () =>{
-        localStorage.removeItem('Session');
-        this.setState({token:null})
-    } 
-    log= (token) =>{
-        if(token){
-            return <Link to='./Login' onClick={this.token}>logaut</Link>  
 
-        } else{
-            return <Link to='./Login' >login</Link>
+const Header = () => {
+    const dispatch = useDispatch()    
+    const posts = useSelector(state => state.posts)
+
+
+    const log = () => {
+        const existingtoken = posts.find(post => post.token === localStorage.getItem('Session'))
+        console.log(existingtoken)
+        if ( typeof existingtoken === 'undefined') {
+            return <Link to='./Login' >Login</Link>
+        }    
+        if (existingtoken.token === null) {
+            return <Link to='./Login' >Login</Link>
         }
+        return <Link to='./Login' onClick={tok} >Logaut</Link>
 
     }
-    
-    render() {
-        const tok= localStorage.getItem('Session')
-        return (
-            <body>
-                <nav>
-                    <input type="checkbox" id="check"></input>
-                    <label htmlFor="check" className="checkbtn">
-                        <FontAwesomeIcon icon={faAlignJustify} />
-                    </label>
-                    <label className={'logo'}>Header</label>
-                    <ul>
-                        <li><a  href="/">HomePagae</a></li>
-                        <li><a  href="/">nosotros</a></li>
-                        <li>{this.log(tok)}</li>                        
-                    </ul>
-                </nav>
-            </body>
-        )
+
+    const tok = () => {
+        localStorage.removeItem('Session')
+        dispatch(
+            postUpdated({
+               token:localStorage.getItem('Session'),
+               newToken:''     
+            })
+        )  
+            
     }
+
+    return (
+        <div>
+            <nav>
+                <input type="checkbox" id="check"></input>
+                <label htmlFor="check" className="checkbtn">
+                    <FontAwesomeIcon icon={faAlignJustify} />
+                </label>
+                <label className={'logo'}>Header</label>
+                <ul>
+                    <li><a href="/">HomePagae</a></li>
+                    <li><a href="/">nosotros</a></li>
+                    <li>{log()}</li>
+                </ul>
+            </nav>
+        </div>
+    )
 }
+export default Header
