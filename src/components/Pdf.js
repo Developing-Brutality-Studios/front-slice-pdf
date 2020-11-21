@@ -1,13 +1,15 @@
 
-import React, { useState, Component } from 'react';
+import { useState  } from 'react';
 import { Page } from 'react-pdf'
 import { Document } from 'react-pdf/dist/esm/entry.webpack';
-import 'react-pdf/dist/umd/Page/AnnotationLayer.css';
+
+import '../css/styles-pdf.css';
 
 
 import pdf from './Full Stack JavaScript Learn Backbone.js, Node.js, and MongoDB by Azat Mardan (z-lib.org).pdf'
 
-function MyApp() {
+const MyApp = () =>{
+
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -38,10 +40,12 @@ function MyApp() {
                 file={pdf}
                 onLoadSuccess={onDocumentLoadSuccess}
                 onItemClick={onItemClick}
-                className="page"
+                className="document"
             >
-                <Page
-                    pageNumber={pageNumber} />
+                <Page 
+                    pageNumber={pageNumber} 
+                    className='hoja'
+                />
             </Document>
             <div>
                 <p>
@@ -66,8 +70,8 @@ function MyApp() {
     );
 }
 
-export default class Pdf extends Component {
-    render() {
+const  Pdf = () => {
+    
         return (
             <div>
                 <div className='hojas'>
@@ -75,5 +79,7 @@ export default class Pdf extends Component {
                 </div>
             </div>
         )
-    }
+    
 }
+
+export default Pdf

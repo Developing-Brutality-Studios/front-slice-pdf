@@ -64,11 +64,9 @@ const Login = () => {
         dispatch(
             postAdded({
                 token: token,
-                username: username,
-                password:password
             })
         )
-        return (<Redirect to='/' />)
+        return (<Redirect to='/home' />)
     }
 
 

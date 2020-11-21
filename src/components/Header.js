@@ -1,38 +1,36 @@
 //import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { faAlignJustify } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { postUpdated } from '../redux/reducer'
 import '../css/styles-nav.css'
 
-const Header = () => {
-    const dispatch = useDispatch()    
-    const posts = useSelector(state => state.posts)
-
+const Header = ({posts}) => {
+    const dispatch = useDispatch()     
 
     const log = () => {
-        const existingtoken = posts.find(post => post.token === localStorage.getItem('Session'))
-        console.log(existingtoken)
-        if ( typeof existingtoken === 'undefined') {
-            return <Link to='./Login' >Login</Link>
-        }    
-        if (existingtoken.token === null) {
-            return <Link to='./Login' >Login</Link>
-        }
-        return <Link to='./Login' onClick={tok} >Logaut</Link>
+        console.log(posts)
+        if ( posts[0].token === '' || posts[0].token === null  ) {
+
+            return <Link to='/' >Login</Link>
+        } 
+            return <Link to='/' onClick={tok} >Logaut</Link>        
+                
+  
 
     }
 
-    const tok = () => {
-        localStorage.removeItem('Session')
-        dispatch(
+    const tok = () => {        
+         dispatch(
             postUpdated({
                token:localStorage.getItem('Session'),
                newToken:''     
             })
-        )  
-            
+        )
+        localStorage.removeItem('Session')
+        return <Redirect to='/'/>
+           
     }
 
     return (
@@ -44,7 +42,7 @@ const Header = () => {
                 </label>
                 <label className={'logo'}>Header</label>
                 <ul>
-                    <li><a href="/">HomePagae</a></li>
+                    <li><a href="/home">HomePagae</a></li>
                     <li><a href="/">nosotros</a></li>
                     <li>{log()}</li>
                 </ul>
