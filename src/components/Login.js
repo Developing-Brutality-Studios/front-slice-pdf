@@ -2,10 +2,10 @@ import { useState } from 'react'
 import '../css/styles-login.css';
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
-import { postAdded } from '../redux/reducer'
+import { setTok } from '../redux/reducer'
 import { Link, Redirect } from 'react-router-dom'
 
-const connect = async (username, password) => {
+export const connect = async (username, password) => {
     var token = ''
     const data = {
         'Correo': username,
@@ -28,7 +28,7 @@ const connect = async (username, password) => {
 }
 
 
-const Login = () => {
+const Login = (t) => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -44,11 +44,17 @@ const Login = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         const ll = await connect(username, password)             
-        setToken( ll  )
+        if(ll){
+            setToken(ll)
+        }
+        else{
+            console.log('Error')
+        }
+
     }
     
 
-    if (token === "") {
+    if (token === '') {
         return (
             <form className="box" onSubmit={onSubmit}>
                 <h2>Loging</h2>
@@ -62,9 +68,7 @@ const Login = () => {
     } else {
         
         dispatch(
-            postAdded({
-                token: token,
-            })
+            setTok( token || '')
         )
         return (<Redirect to='/home' />)
     }

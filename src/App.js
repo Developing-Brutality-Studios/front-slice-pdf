@@ -4,14 +4,12 @@ import Heade from './components/Header'
 import Login from './components/Login'
 import NewUser from './components/NewUser'
 import Pdf from './components/Pdf'
-import { useSelector } from 'react-redux'
+
+
 function App() {
-
-  const posts = useSelector(state => state.posts)
-
   return (    
       <Router>
-        <Heade posts={posts}/>
+        <Heade />
         <Route path='/home'  ><Home /></Route>
         <Route path='/' exact><Login /></Route>
         <Route path='/newUser'><NewUser /></Route>

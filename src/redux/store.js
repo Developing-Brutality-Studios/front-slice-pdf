@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
+import reducer from './reducer'
 
-import postsReducer from './reducer'
 
 export default configureStore({
   reducer: {
-    posts: postsReducer
+    autorize: reducer
   }
 })

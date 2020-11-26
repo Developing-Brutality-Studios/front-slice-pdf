@@ -1,32 +1,25 @@
 //import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { faAlignJustify } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, Redirect } from 'react-router-dom'
-import { postUpdated } from '../redux/reducer'
+import { setTok, selectToken } from '../redux/reducer'
 import '../css/styles-nav.css'
 
 const Header = ({posts}) => {
-    const dispatch = useDispatch()     
-
-    const log = () => {
-        console.log(posts)
-        if ( posts[0].token === '' || posts[0].token === null  ) {
-
-            return <Link to='/' >Login</Link>
-        } 
+    const slice = useSelector(selectToken)
+    const dispatch = useDispatch()        
+    const log = () => {        
+            if (!slice){
+                return <Link to='/' >Login</Link>
+            }
             return <Link to='/' onClick={tok} >Logaut</Link>        
-                
-  
 
     }
 
     const tok = () => {        
-         dispatch(
-            postUpdated({
-               token:localStorage.getItem('Session'),
-               newToken:''     
-            })
+        dispatch(
+            setTok('')
         )
         localStorage.removeItem('Session')
         return <Redirect to='/'/>

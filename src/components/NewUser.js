@@ -2,6 +2,8 @@ import { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 
+
+
 const emailRegex = RegExp(
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
@@ -21,6 +23,8 @@ const formValid = ({ formErrors, ...rest }) => {
 
     return valid;
 };
+
+
 
 export default class NewUser extends Component {
 
@@ -46,9 +50,6 @@ export default class NewUser extends Component {
 
         const { name, value } = e.target;
         let formErrors = { ...this.state.formErrors };
-
-
-
         switch (name) {
 
             case "nombre":
@@ -82,31 +83,22 @@ export default class NewUser extends Component {
     onSubmit = async (e) => {
         e.preventDefault();
         const state = this.state
-        const login = {
-            'Correo': state.email,
-            'Clave': state.password
-        }
+
         const data = {
             'Nombre': state.nombre + state.apellido,
             'Correo': state.email,
             'Foto': state.email,
             'Clave': state.password
-        }
-        const user = JSON.stringify(data)
+        }            
 
-        if (formValid(state)) {
-            const log = JSON.stringify(login)
+        if (!formValid(state)) {
+            const log = JSON.stringify(data)
             axios.put('http://localhost:8080/registro/',
                 log
-            ).then((e) => {
+            ).then( async (e) => {
                 if (e.data.id) {
-                    axios.put('http://localhost:8080/iniciosesion',
-                        user
-                    ).then((e) => {
-                        localStorage.setItem('Session', e.data.Value);
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
+                    this.setState({token: e.data.id})
+                                                       
                 }
             }).catch(function (error) {
                 console.log(error);
@@ -169,6 +161,11 @@ export default class NewUser extends Component {
                 </form>
             )
         }
-        return <Redirect to="/" />;
+        return (
+            
+            <Redirect to="/" />
+
+            
+        );
     }
 }

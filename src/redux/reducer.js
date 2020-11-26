@@ -1,29 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = [ {    
-      token: localStorage.getItem('Session'),
-    }
-  
-]
 
-const postsSlice = createSlice({
-  
-  name: 'posts',
-  initialState,
+
+export const slice = createSlice({
+  name: 'autorize',
+  initialState: {
+    token: localStorage.getItem('Session'),
+  },
   reducers: {
-    postAdded(state, action) {      
-      state[0] = action.payload
+    setTok: (state, action) => {
+        state.token = action.payload
     },
-    postUpdated(state, action) {
-      const { token, newToken } = action.payload
-      const existingPost = state.find(post => post.token === token)
-      if (existingPost) {
-        existingPost.token = newToken        
-      }
-    }
-  }
-})
+  },
+});
 
-export const { postUpdated ,postAdded } = postsSlice.actions
-
-export default postsSlice.reducer
+export const {setTok} = slice.actions;
+export const selectToken = state => state.autorize.token;
+export default slice.reducer;
