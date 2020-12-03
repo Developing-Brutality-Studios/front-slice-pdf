@@ -21,6 +21,7 @@ export const connect = async (username, password) => {
         console.log(error);
     }).then(() =>{
         token = localStorage.getItem('Session')
+        console.log(token)
     })
     
 

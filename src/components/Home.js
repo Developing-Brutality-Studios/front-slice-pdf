@@ -7,13 +7,15 @@ const Home = () => {
 
     const [ , setLibros] = useState('');
 
-    var tok = localStorage.getItem('Sesion')
+    var tok = localStorage.getItem('Session')
 
-    axios.get('http://localhost:8080/inicio',
+    axios.get('http://127.0.0.1:8080/inicio',
  
         {
             headers: {
-                'token': tok
+                "token": tok,
+                "Access-Control-Allow-Origin": "*",
+                
             }
         }
      
