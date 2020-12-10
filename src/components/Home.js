@@ -4,9 +4,7 @@ import Carts from './Carts';
 import Sub from './Sub'
 import '../css/styles-carts.css'
 const Home = () => {
-
-<<<<<<< HEAD
-    const [libros , setLibros] = useState('');
+const [libros , setLibros] = useState('');
    
     
     if(libros === ''){
@@ -15,19 +13,6 @@ const Home = () => {
                 headers: {
                     'token':  localStorage.getItem('Session')
                 }
-=======
-    const [ , setLibros] = useState('');
-
-    var tok = localStorage.getItem('Session')
-
-    axios.get('http://127.0.0.1:8080/inicio',
- 
-        {
-            headers: {
-                "token": tok,
-                "Access-Control-Allow-Origin": "*",
-                
->>>>>>> c8e63101a9e6910269550bf00880cd34370ceca2
             }
         
         ).then((e) => {                       
