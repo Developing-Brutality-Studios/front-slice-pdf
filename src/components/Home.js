@@ -5,27 +5,25 @@ import Sub from './Sub'
 import '../css/styles-carts.css'
 const Home = () => {
 
-    const [ , setLibros] = useState('');
-
-    var tok = localStorage.getItem('Sesion')
-
-    axios.get('http://localhost:8080/inicio',
- 
-        {
-            headers: {
-                'token': tok
+    const [libros , setLibros] = useState('');
+   
+    
+    if(libros === ''){
+            axios.get('http://localhost:8080/inicio', 
+            {
+                headers: {
+                    'token':  localStorage.getItem('Session')
+                }
             }
-        }
-     
-    ).then((e) => {        
-               
-        setLibros(e.data.Value)
-        console.log(e.data.Value)
+        
+        ).then((e) => {                       
+            setLibros(e.data)        
 
-    }).catch(function (error) {
-        console.log(error);
-    })
-
+        }).catch(function (error) {
+            console.log(error);
+        })   
+    }
+      
     return (
         <div>
             <div className="container-card">

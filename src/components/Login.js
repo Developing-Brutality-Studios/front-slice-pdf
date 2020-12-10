@@ -6,14 +6,15 @@ import { setTok } from '../redux/reducer'
 import { Link, Redirect } from 'react-router-dom'
 
 export const connect = async (username, password) => {
-    var token = ''
+    var token = false
     const data = {
         'Correo': username,
         'Clave': password
     }
     const user = JSON.stringify(data)
 
-    await axios.put('http://localhost:8080/iniciosesion',
+    if(token){
+        await axios.put('http://localhost:8080/iniciosesion',
         user
     ).then((e) => {
         localStorage.setItem('Session', e.data.Value);        
@@ -22,6 +23,9 @@ export const connect = async (username, password) => {
     }).then(() =>{
         token = localStorage.getItem('Session')
     })
+    }
+
+  
     
 
     return token
@@ -53,7 +57,6 @@ const Login = (t) => {
 
     }
     
-
     if (token === '') {
         return (
             <form className="box" onSubmit={onSubmit}>
