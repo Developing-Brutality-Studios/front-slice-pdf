@@ -90,7 +90,7 @@ const MyApp = () => {
                 </div>
                 <div  className='selectect-text' >
                     <Document
-                        file={'http://localhost:4008/download'}
+                        file={'http://localhost:8080/file/DockerDeepDivebyNigelPoulton(z-lib.org).pdf'}
                         onLoadSuccess={onDocumentLoadSuccess}
                         onItemClick={onItemClick}
                         className="document selectect-text"

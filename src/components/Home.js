@@ -16,7 +16,8 @@ const [libros , setLibros] = useState('');
             }
         
         ).then((e) => {                       
-            setLibros(e.data)        
+            setLibros(e.data)
+            console.log(e.data)        
 
         }).catch(function (error) {
             console.log(error);

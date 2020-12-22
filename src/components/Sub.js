@@ -40,6 +40,11 @@ class FileUpload extends Component {
 
             axios.post(
                 this.custom_file_upload_url,
+                {
+                    headers: {
+                        'token':  localStorage.getItem('Session')
+                    }
+                },
                 formData               
             )
             .then(res => {

@@ -1,6 +1,8 @@
 import { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setTok } from '../redux/reducer'
 
 
 
@@ -24,6 +26,13 @@ const formValid = ({ formErrors, ...rest }) => {
     return valid;
 };
 
+const Log = () =>{
+    const dispatch = useDispatch()
+    dispatch(
+        setTok( localStorage.getItem('Session') || '')
+    )
+    return (<Redirect to='/home' />)
+}
 
 
 export default class NewUser extends Component {
@@ -98,7 +107,8 @@ export default class NewUser extends Component {
             ).then( async (e) => {
                 if (e.data.id) {
                     this.setState({token: e.data.id})
-                                                       
+                    localStorage.setItem('Session', this.state.token )
+                    return Log                                   
                 }
             }).catch(function (error) {
                 console.log(error);
@@ -163,7 +173,7 @@ export default class NewUser extends Component {
         }
         return (
             
-            <Redirect to="/" />
+            <Redirect to='/home' />
 
             
         );

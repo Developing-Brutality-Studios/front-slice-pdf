@@ -13,7 +13,7 @@ export const connect = async (username, password) => {
     }
     const user = JSON.stringify(data)
 
-    if(token){
+    if(!token){
         await axios.put('http://localhost:8080/iniciosesion',
         user
     ).then((e) => {
@@ -21,14 +21,9 @@ export const connect = async (username, password) => {
     }).catch(function (error) {
         console.log(error);
     }).then(() =>{
-        token = localStorage.getItem('Session')
-        console.log(token)
+        token = localStorage.getItem('Session')        
     })
     }
-
-  
-    
-
     return token
 }
 
