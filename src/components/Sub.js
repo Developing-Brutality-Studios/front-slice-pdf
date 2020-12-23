@@ -34,18 +34,17 @@ class FileUpload extends Component {
 
             let formData = new FormData();
             formData.append('myFile', this.state.image_file);
-            formData.append('id', 'pelangueroid');
+            //formData.append('id', 'pelangueroid');
             // the image field name should be similar to your api endpoint field name
             // in my case here the field name is customFile
 
             axios.post(
-                this.custom_file_upload_url,
-                {
+                'http://localhost:8080/upload',
+                formData,{
                     headers: {
                         'token':  localStorage.getItem('Session')
                     }
-                },
-                formData               
+                }               
             )
             .then(res => {
                 console.log(`Success` + res.data);
@@ -67,9 +66,10 @@ class FileUpload extends Component {
                 <input
                     type="file"
                     onChange={this.handleImagePreview}
+                    name="myFile"
                 />
                 <label>Upload file</label>
-                <input type="submit" onClick={this.handleSubmitFile} value="Submit"/>
+                <button type="submit" onClick={this.handleSubmitFile}>upload</button>
             </div>
         );
     }
