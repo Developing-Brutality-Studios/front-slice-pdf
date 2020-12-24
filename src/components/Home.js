@@ -3,11 +3,11 @@ import axios from 'axios';
 import Carts from './Carts';
 import Sub from './Sub'
 import '../css/styles-carts.css'
+import { Link, Redirect } from 'react-router-dom'
 const Home = () => {
-const [libros , setLibros] = useState('');
-   
-    
-    if(libros === ''){
+const [libros , setLibros] = useState([]);
+var arra=[];
+    if(libros.length == 0){
             axios.get('http://localhost:8080/inicio', 
             {
                 headers: {
@@ -15,28 +15,37 @@ const [libros , setLibros] = useState('');
                 }
             }
         
-        ).then((e) => {                       
-            setLibros(e.data)
-            console.log(e.data)        
-
+        ).then((e) => {                     
+            setLibros(e.data.libros)
+            console.log("libros")
+            console.log(e.data)
+            arra=e.data.libros
+            console.log("arrrra")
+            console.log(arra)
         }).catch(function (error) {
             console.log(error);
         })   
     }
-      
-    return (
-        <div>
-            <div className="container-card">
-                <Carts
-                    title='Un mundo feliz'
-                    parrafo='Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor'
-                    image='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.VRgBiLoOpkvrh8V7kQ1KBAHaKe%26pid%3DApi&f=1'
-                />
-            </div>
-            <br /><br />
-            <Sub />
+    if(localStorage.getItem('Session')!=null){
+        console.log("arrrra")
+        console.log(arra)
+        return(<div>
+        <div className="container-card">
+            {
+                libros.map((libro)=><Carts title={libro.Archivo} parrafo='Lorem Ipsum es simplemente el texto de relleno de las imp'  image={libro.Imagen}></Carts>)
+            }
+            
+            
         </div>
-    )
+        <br /><br />
+        
+    </div>);
+    } else{
+        return(
+            <Redirect to='/' />
+        )
+    }
+    
 
 
 }
