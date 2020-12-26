@@ -1,28 +1,21 @@
-import axios from "axios";
 import { useState } from "react";
 import { Page } from "react-pdf";
 import { Document } from "react-pdf/dist/esm/entry.webpack";
 import React, { Component } from "react";
 import "../css/styles-pdf.css";
 import { useParams } from "react-router-dom";
+import {Map} from './HojaTrucos';
 
-//import pdf from "http://example.com/sample.pdf"
+
+const HojaTrucos = async()=>{
+    const hoja = await Map()
+    console.log(hoja)
+}
 
 const MyApp = (props) => {
-  var lib = "";
+  
   var base = "http://localhost:8080/file/";
   var params = useParams();
-  if (lib === "") {
-    axios
-      .get("http://localhost:4008/download", {
-        headers: {
-          token: localStorage.getItem("Session"),
-        },
-      })
-      .then((e) => {
-        lib = e.data;
-      });
-  }
 
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
@@ -82,11 +75,14 @@ const MyApp = (props) => {
           </button>
           <div>
             <div>{text}</div>
+            <button onClick={HojaTrucos}>
+                Guardar
+            </button>
           </div>
         </div>
         <div className="selectect-text">
           <Document
-            file={base.concat(params.nombrepdf)}
+            file={base.concat('SDLGameDevelopment.pdf')}
             onLoadSuccess={onDocumentLoadSuccess}
             onItemClick={onItemClick}
             className="document selectect-text"
