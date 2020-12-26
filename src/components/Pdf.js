@@ -4,12 +4,15 @@ import { Document } from "react-pdf/dist/esm/entry.webpack";
 import React, { Component } from "react";
 import "../css/styles-pdf.css";
 import { useParams } from "react-router-dom";
-import {Map} from './HojaTrucos';
+import {Map, NewSheet} from './HojaTrucos';
 
 
 const HojaTrucos = async()=>{
     const hoja = await Map()
     console.log(hoja)
+}
+const NewS = async()=>{
+    NewSheet()    
 }
 
 const MyApp = (props) => {
@@ -77,6 +80,9 @@ const MyApp = (props) => {
             <div>{text}</div>
             <button onClick={HojaTrucos}>
                 Guardar
+            </button>
+            <button onClick={NewS}>
+                nueva
             </button>
           </div>
         </div>
