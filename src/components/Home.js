@@ -4,10 +4,11 @@ import Carts from "./Carts";
 import Sub from "./Sub";
 import "../css/styles-carts.css";
 import { Link, Redirect } from "react-router-dom";
+import ListCS from "./ListCS";
 const Home = () => {
   const [libros, setLibros] = useState([]);
   var arra = [];
-  if (libros.length == 0) {
+  if (libros.length === 0) {
     axios
       .get("http://localhost:8080/inicio", {
         headers: {
@@ -30,7 +31,8 @@ const Home = () => {
     console.log("arrrra");
     console.log(arra);
     return (
-      <div>
+      <div className="homecontainer">
+        <ListCS></ListCS>
         <div className="container-card">
           <Sub
             title="Agregar Libro"
@@ -40,7 +42,6 @@ const Home = () => {
             <Carts
               key={libro.ID}
               title={libro.Archivo}
-              parrafo="Lorem Ipsum es simplemente el texto de relleno de las imp"
               image={libro.Imagen}
             ></Carts>
           ))}

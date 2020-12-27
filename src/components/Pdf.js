@@ -27,6 +27,7 @@ const MyApp = (props) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [text, setText] = useState("");
+  const [escala, setscala] = useState(1.3);
   const selectT = document.querySelectorAll(".selectect-text");
 
   selectT.forEach((elem) => {
@@ -62,24 +63,40 @@ const MyApp = (props) => {
   return (
     <>
       <div className="grid">
-        <div>
-          <p>
+        <div className="pdfnav">
+          <div id="buttonav">
+            <button
+              type="button"
+              disabled={pageNumber <= 1}
+              onClick={previousPage}
+            >
+              Anterior
+            </button>
             Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
-          </p>
-          <button
-            type="button"
-            disabled={pageNumber <= 1}
-            onClick={previousPage}
-          >
-            Previous
-          </button>
-          <button
-            type="button"
-            disabled={pageNumber >= numPages}
-            onClick={nextPage}
-          >
-            Next
-          </button>
+            <button
+              type="button"
+              disabled={pageNumber >= numPages}
+              onClick={nextPage}
+            >
+              Siguiente
+            </button>
+          </div>
+          <div id="buttonzoom">
+            <button
+              onClick={() => {
+                setscala(escala + 0.1);
+              }}
+            >
+              +
+            </button>
+            <button
+              onClick={() => {
+                escala > 1.3 ? setscala(escala - 0.1) : setscala(1.3);
+              }}
+            >
+              -
+            </button>
+          </div>
           <div>
             <div>{text}</div>
           </div>
@@ -91,7 +108,11 @@ const MyApp = (props) => {
             onItemClick={onItemClick}
             className="document selectect-text"
           >
-            <Page pageNumber={pageNumber} className="hoja  selectect-text" />
+            <Page
+              pageNumber={pageNumber}
+              className="hoja  selectect-text"
+              scale={escala.toString()}
+            />
           </Document>
         </div>
       </div>
