@@ -4,25 +4,31 @@ import { Document } from "react-pdf/dist/esm/entry.webpack";
 import React, { Component } from "react";
 import "../css/styles-pdf.css";
 import { useParams } from "react-router-dom";
-import {Map, NewSheet} from './HojaTrucos';
+import { Lector, NewSheet } from './HojaTrucos';
 
 
-const HojaTrucos = async()=>{
-    const hoja = await Map()
-    console.log(hoja)
+const HojaTrucos = async () => {
+  const hoja = await Lector()
+  return hoja
 }
-const NewS = async()=>{
-    NewSheet()    
+const NewS = async () => {
+  NewSheet()
 }
 
+/*const Modal = () => {
+  var botton = false
+  return !botton
+}*/
 const MyApp = (props) => {
-  
+
   var base = "http://localhost:8080/file/";
   var params = useParams();
 
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [text, setText] = useState("");
+  const [bot,setBot] = useState('display: none;')
+  const [hojaTrucos, setHojaT] = useState(HojaTrucos())
   const selectT = document.querySelectorAll(".selectect-text");
 
   selectT.forEach((elem) => {
@@ -55,6 +61,8 @@ const MyApp = (props) => {
     changePage(1);
   }
 
+ 
+
   return (
     <>
       <div className="grid">
@@ -78,11 +86,20 @@ const MyApp = (props) => {
           </button>
           <div>
             <div>{text}</div>
-            <button onClick={HojaTrucos}>
-                Guardar
-            </button>
+             <div>
+                <div className="modal" style={bot}>
+                  <div className="modal-content">
+                    <span className="close">&times;</span>
+                    <p>Some text in the Modal..</p>
+                    <botton onClick={setBot('display: none;')}  >salir</botton>
+                  </div>
+               </div>
+            </div>
+            <button onClick={setBot('display: absolute;')}>
+              Guardar
+            </button >
             <button onClick={NewS}>
-                nueva
+              nueva
             </button>
           </div>
         </div>
