@@ -28,7 +28,9 @@ export const NewSheet = (i) => {
             headers: {
                 token: localStorage.getItem("Session"),
             },
-        })
+        }).then((e) =>{
+            return e.data
+        } )
         .catch((err) => {
             console.log(err);
         });

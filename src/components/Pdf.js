@@ -9,13 +9,15 @@ import axios from 'axios';
 
 
 const NewS = (i) => {
-  NewSheet(i)
+  console.log(NewSheet(i))
+
+
 }
 
 
 
 const MyApp = (props = false) => {
-
+  
   var base = "http://localhost:8080/file/";
   var params = useParams();
 
@@ -80,9 +82,7 @@ const MyApp = (props = false) => {
       }).then((e) =>{
         console.log(e.data)
       })
-  }
-  
-  console.log(hojaTrucos) 
+  }  
 
   return (
     <>
@@ -119,16 +119,17 @@ const MyApp = (props = false) => {
                   <button onClick={() => NewS(tit)}>Nuevo</button>                  
                 </form>
                 <button onClick={() => setbot(false)}>salir</button>
+                {text.length > 5 && hojaTrucos.length >10 &&
+                  <button onClick={nTruco}>  Guardar truco  </button >
+                }
+                
               </div>
             </div>
             }
             </div>
             <button onClick={async () => { setArr(await Lector()); setbot(true) }} >
               Guardar
-            </button >
-            <button onClick={nTruco} >
-              Guardar truco
-            </button >
+            </button >            
           </div>
         </div>
         <div className="selectect-text">
