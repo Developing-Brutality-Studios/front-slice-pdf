@@ -4,22 +4,17 @@ import { Document } from "react-pdf/dist/esm/entry.webpack";
 import React, { Component } from "react";
 import "../css/styles-pdf.css";
 import { useParams } from "react-router-dom";
-import { Lector, NewSheet } from './HojaTrucos';
+import { NuevoTruco,Lector, NewSheet } from './HojaTrucos';
+import axios from 'axios';
 
 
-const HojaTrucos = async () => {
-  const hoja = await Lector()
-  return hoja
-}
-const NewS = async () => {
-  NewSheet()
+const NewS = (i) => {
+  NewSheet(i)
 }
 
-/*const Modal = () => {
-  var botton = false
-  return !botton
-}*/
-const MyApp = (props) => {
+
+
+const MyApp = (props = false) => {
 
   var base = "http://localhost:8080/file/";
   var params = useParams();
@@ -27,9 +22,13 @@ const MyApp = (props) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [text, setText] = useState("");
-  const [bot,setBot] = useState('display: none;')
-  const [hojaTrucos, setHojaT] = useState(HojaTrucos())
+  const [bot, setbot] = useState(false)
+  const [arr, setArr] = useState([1])
+  const [nue, setNew] = useState(false)
+  const [tit, setit] = useState('')
+  const [hojaTrucos, setHojaT] = useState('')
   const selectT = document.querySelectorAll(".selectect-text");
+  const Changed = e => setit(e.target.value)
 
   selectT.forEach((elem) => {
     elem.addEventListener("mouseup", sText);
@@ -60,8 +59,30 @@ const MyApp = (props) => {
   function nextPage() {
     changePage(1);
   }
+  const Radio = (i) => {
+    return (
+      <div>
+        <input type="radio" name='hojas' id={i.ID} value={i.ID} onClick={() => setHojaT(i.ID)} />
+        <label htmlFor={i.ID}>{i.Titulo}</label>
+      </div>
+    )
+  }
 
- 
+  const nTruco = () =>{
+    var obj = {
+      'cheatsheet': hojaTrucos,      
+      'contenido': text    }
+    axios
+      .post('http://localhost:8080/addCheat',obj,{
+        headers: {
+            token: localStorage.getItem("Session"),
+        }
+      }).then((e) =>{
+        console.log(e.data)
+      })
+  }
+  
+  console.log(hojaTrucos) 
 
   return (
     <>
@@ -86,21 +107,28 @@ const MyApp = (props) => {
           </button>
           <div>
             <div>{text}</div>
-             <div>
-                <div className="modal" style={bot}>
-                  <div className="modal-content">
-                    <span className="close">&times;</span>
-                    <p>Some text in the Modal..</p>
-                    <botton onClick={setBot('display: none;')}  >salir</botton>
+            <div>{bot && <div className="modal" >
+              <div className="modal-content">
+                <form>
+                  <div>
+                    {arr.map((i) => Radio(i))}
                   </div>
-               </div>
+                  <div>
+                    <input onChange={Changed} type="text" name="Hoja" placeholder="Nombre nueva hoja " />                    
+                  </div>
+                  <button onClick={() => NewS(tit)}>Nuevo</button>                  
+                </form>
+                <button onClick={() => setbot(false)}>salir</button>
+              </div>
             </div>
-            <button onClick={setBot('display: absolute;')}>
+            }
+            </div>
+            <button onClick={async () => { setArr(await Lector()); setbot(true) }} >
               Guardar
             </button >
-            <button onClick={NewS}>
-              nueva
-            </button>
+            <button onClick={nTruco} >
+              Guardar truco
+            </button >
           </div>
         </div>
         <div className="selectect-text">

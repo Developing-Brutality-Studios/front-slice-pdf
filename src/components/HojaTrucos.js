@@ -17,11 +17,11 @@ export const Map = () => {
 
 }
 
-export const NewSheet = () => {
+export const NewSheet = (i) => {
     const Json = {
         'id': '',
         'usuario': '',
-        'titulo': 'hola_mundo'
+        'titulo': i
     }
     axios
         .post('http://localhost:8080/addCheatSheet', Json, {
@@ -45,6 +45,10 @@ export const Lector = async () => {
     }
 }
 
+
+export const NuevoTruco = (i) =>{
+    
+}
 
 
 export default Map
