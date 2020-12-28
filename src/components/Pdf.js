@@ -5,6 +5,10 @@ import { Document } from "react-pdf/dist/esm/entry.webpack";
 import React, { Component } from "react";
 import "../css/styles-pdf.css";
 import { useParams } from "react-router-dom";
+import { bookmarkPlugin } from "@react-pdf-viewer/bookmark";
+
+// Import styles
+import "@react-pdf-viewer/bookmark/lib/styles/index.css";
 
 //import pdf from "http://example.com/sample.pdf"
 
@@ -12,6 +16,7 @@ const MyApp = (props) => {
   var lib = "";
   var base = "http://localhost:8080/file/";
   var params = useParams();
+  const bookmarkPluginInstance = bookmarkPlugin();
   if (lib === "") {
     axios
       .get("http://localhost:4008/download", {
@@ -63,6 +68,7 @@ const MyApp = (props) => {
   return (
     <>
       <div className="grid">
+        <bookmarkPlugin></bookmarkPlugin>
         <div className="pdfnav">
           <div id="buttonav">
             <button

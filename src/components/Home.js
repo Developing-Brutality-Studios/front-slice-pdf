@@ -8,6 +8,7 @@ import ListCS from "./ListCS";
 const Home = () => {
   const [libros, setLibros] = useState([]);
   var arra = [];
+  let status = {};
   if (libros.length === 0) {
     axios
       .get("http://localhost:8080/inicio", {
@@ -16,20 +17,19 @@ const Home = () => {
         },
       })
       .then((e) => {
+        status = e;
         setLibros(e.data.libros);
         console.log("libros");
         console.log(e.data);
         arra = e.data.libros;
-        console.log("arrrra");
-        console.log(arra);
       })
       .catch(function (error) {
         console.log(error);
       });
   }
-  if (localStorage.getItem("Session") != null) {
-    console.log("arrrra");
-    console.log(arra);
+  if (localStorage.getItem("Session") != null && status.status != 400) {
+    console.log("libros");
+    console.log(libros);
     return (
       <div className="homecontainer">
         <ListCS></ListCS>
@@ -51,6 +51,7 @@ const Home = () => {
       </div>
     );
   } else {
+    localStorage.removeItem("Session");
     return <Redirect to="/" />;
   }
 };
