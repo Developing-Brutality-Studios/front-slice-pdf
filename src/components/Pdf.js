@@ -17,9 +17,22 @@ const MyApp = (e) => {
   var base = "http://localhost:8080/file/";
   var params = useParams();
 
+  if (lib === "") {
+    axios
+      .get("http://localhost:4008/download", {
+        headers: {
+          token: localStorage.getItem("Session"),
+        },
+      })
+      .then((e) => {
+        lib = e.data;
+      });
+  }
+
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [text, setText] = useState("");
+
   const [bot, setbot] = useState(false);
   const [nuevaHoja, setNuevaHoja] = useState(false);
   const [arr, setArr] = useState([1])
@@ -27,6 +40,8 @@ const MyApp = (e) => {
   const [titulo, setTitulo] = useState('')
   const [tit, setit] = useState('')
   const [hojaTrucos, setHojaT] = useState('')
+
+  const [escala, setscala] = useState(1.3);
   const selectT = document.querySelectorAll(".selectect-text");
   const Changed = e => setit(e.target.value)
   const chanTit = e => setTitulo(e.target.value)
@@ -90,24 +105,40 @@ const MyApp = (e) => {
   return (
     <>
       <div className="grid">
-        <div>
-          <p>
+        <div className="pdfnav">
+          <div id="buttonav">
+            <button
+              type="button"
+              disabled={pageNumber <= 1}
+              onClick={previousPage}
+            >
+              Anterior
+            </button>
             Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
-          </p>
-          <button
-            type="button"
-            disabled={pageNumber <= 1}
-            onClick={previousPage}
-          >
-            Previous
-          </button>
-          <button
-            type="button"
-            disabled={pageNumber >= numPages}
-            onClick={nextPage}
-          >
-            Next
-          </button>
+            <button
+              type="button"
+              disabled={pageNumber >= numPages}
+              onClick={nextPage}
+            >
+              Siguiente
+            </button>
+          </div>
+          <div id="buttonzoom">
+            <button
+              onClick={() => {
+                setscala(escala + 0.1);
+              }}
+            >
+              +
+            </button>
+            <button
+              onClick={() => {
+                escala > 1.3 ? setscala(escala - 0.1) : setscala(1.3);
+              }}
+            >
+              -
+            </button>
+          </div>
           <div>
             <div>
               {bot &&
@@ -168,7 +199,11 @@ const MyApp = (e) => {
             onItemClick={onItemClick}
             className="document selectect-text"
           >
-            <Page pageNumber={pageNumber} className="hoja  selectect-text" />
+            <Page
+              pageNumber={pageNumber}
+              className="hoja  selectect-text"
+              scale={escala.toString()}
+            />
           </Document>
         </div>
       </div>
