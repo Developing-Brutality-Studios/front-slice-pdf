@@ -4,20 +4,16 @@ import { Document } from "react-pdf/dist/esm/entry.webpack";
 import React, { Component } from "react";
 import "../css/styles-pdf.css";
 import { useParams } from "react-router-dom";
-import { NuevoTruco,Lector, NewSheet } from './HojaTrucos';
+import { NuevoTruco, Lector, NewSheet } from './HojaTrucos';
 import axios from 'axios';
 
 
 const NewS = (i) => {
   console.log(NewSheet(i))
-
-
 }
 
+const MyApp = (e) => {
 
-
-const MyApp = (props = false) => {
-  
   var base = "http://localhost:8080/file/";
   var params = useParams();
 
@@ -61,29 +57,30 @@ const MyApp = (props = false) => {
   function nextPage() {
     changePage(1);
   }
-  const Radio = (i) => {
+  const Radio = (i,) => {
     return (
-      <div>
+      <div >
         <input type="radio" name='hojas' id={i.ID} value={i.ID} onClick={() => setHojaT(i.ID)} />
         <label htmlFor={i.ID}>{i.Titulo}</label>
       </div>
     )
   }
 
-  const nTruco = () =>{
+  const nTruco = () => {
     var obj = {
-      'cheatsheet': hojaTrucos,      
-      'contenido': text    }
+      'cheatsheet': hojaTrucos,
+      'contenido': text
+    }
     axios
-      .post('http://localhost:8080/addCheat',obj,{
+      .post('http://localhost:8080/addCheat', obj, {
         headers: {
-            token: localStorage.getItem("Session"),
+          token: localStorage.getItem("Session"),
         }
-      }).then((e) =>{
+      }).then((e) => {
         console.log(e.data)
       })
-  }  
-
+  }
+  let n = false
   return (
     <>
       <div className="grid">
@@ -107,29 +104,31 @@ const MyApp = (props = false) => {
           </button>
           <div>
             <div>{text}</div>
-            <div>{bot && <div className="modal" >
-              <div className="modal-content">
-                <form>
-                  <div>
-                    {arr.map((i) => Radio(i))}
-                  </div>
-                  <div>
-                    <input onChange={Changed} type="text" name="Hoja" placeholder="Nombre nueva hoja " />                    
-                  </div>
-                  <button onClick={() => NewS(tit)}>Nuevo</button>                  
-                </form>
-                <button onClick={() => setbot(false)}>salir</button>
-                {text.length > 5 && hojaTrucos.length >10 &&
-                  <button onClick={nTruco}>  Guardar truco  </button >
-                }
-                
+            <div>{bot &&
+              <div className="modal" >
+                <div className="modal-content">
+                  <form>
+                    <div>
+                      {arr.map((i) => Radio(i))}
+                    </div>
+                    <div>{n &&
+                      <input onChange={Changed} type="text" name="Hoja" placeholder="Nombre nueva hoja " />
+                    }
+                    </div>
+                    <input type='submit' onClick={() => { n = true }}></input>
+                  </form>
+                  <button onClick={() => setbot(false)}>salir</button>
+                  {text.length > 5 && hojaTrucos.length > 10 &&
+                    <button onClick={nTruco}>  Guardar truco  </button >
+                  }
+
+                </div>
               </div>
-            </div>
             }
             </div>
             <button onClick={async () => { setArr(await Lector()); setbot(true) }} >
               Guardar
-            </button >            
+            </button >
           </div>
         </div>
         <div className="selectect-text">

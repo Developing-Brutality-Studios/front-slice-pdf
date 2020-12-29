@@ -1,3 +1,4 @@
+import { faDivide } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useState } from 'react'
 
@@ -49,7 +50,13 @@ export const Lector = async () => {
 
 
 export const NuevoTruco = (i) =>{
-    
+    const[nombre,setNombre] = useState('')
+    return (
+        <div>
+            <input type='text' onChange={(e) => setNombre(e) }/>
+            <button onClick={NewSheet(nombre)}>Nueva</button>
+        </div>
+    )
 }
 
 
