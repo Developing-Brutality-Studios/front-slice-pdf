@@ -17,6 +17,7 @@ export const connect = async (username, password) => {
     .put("http://localhost:8080/iniciosesion", user)
     .then((e) => {
       localStorage.setItem("Session", e.data.Value);
+      localStorage.setItem("lastlogin", Date.now());
     })
     .catch(function (error) {
       console.log(error);

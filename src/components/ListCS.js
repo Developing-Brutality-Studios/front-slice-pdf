@@ -19,6 +19,9 @@ export default class ListCS extends Component {
           this.setState({ cheatsheets: e.data.CheatSheets });
           console.log("rarr");
           console.log(this.state.cheatsheets);
+          if (this.state.cheatsheets == null) {
+            this.setState({ cheatsheets: [] });
+          }
         })
         .catch(function (error) {
           console.log(error);
@@ -32,11 +35,12 @@ export default class ListCS extends Component {
         <div className="titulocs" key="trtrt" id="miscs">
           CheatSheets
         </div>
-        {this.state.cheatsheets.map((sheet) => (
-          <div className="titulocs" key={sheet.ID}>
-            {sheet.Titulo}
-          </div>
-        ))}
+        {this.state.cheatsheets !== null &&
+          this.state.cheatsheets.map((sheet) => (
+            <div className="titulocs" key={sheet.ID}>
+              {sheet.Titulo}
+            </div>
+          ))}
       </div>
     );
   }

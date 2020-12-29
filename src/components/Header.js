@@ -29,11 +29,10 @@ const Header = ({ posts }) => {
   return (
     <div>
       <nav>
-        <input type="checkbox" id="check"></input>
         <label htmlFor="check" className="checkbtn">
           <FontAwesomeIcon icon={faAlignJustify} />
         </label>
-        <label className={"logo"}>Slice-Pdf</label>
+        <label className="logo">Slice-Pdf</label>
         <ul>
           <li>
             <a href="/home">HomePage</a>

@@ -7,9 +7,9 @@ import { Link, Redirect } from "react-router-dom";
 import ListCS from "./ListCS";
 const Home = () => {
   const [libros, setLibros] = useState([]);
-  var arra = [];
   let status = {};
-  if (libros.length === 0) {
+
+  if (libros.length === 0 || Object.keys(status) === 0) {
     axios
       .get("http://localhost:8080/inicio", {
         headers: {
@@ -19,16 +19,20 @@ const Home = () => {
       .then((e) => {
         status = e;
         setLibros(e.data.libros);
-        console.log("libros");
-        console.log(e.data);
-        arra = e.data.libros;
+
+        if (libros == null) {
+          setLibros([]);
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
   }
-  if (localStorage.getItem("Session") != null && status.status != 400) {
-    console.log("libros");
+  if (
+    localStorage.getItem("Session") != null &&
+    Date.now() - localStorage.getItem("lastlogin") < 86400000
+  ) {
+    console.log("liyesss");
     console.log(libros);
     return (
       <div className="homecontainer">
@@ -37,6 +41,9 @@ const Home = () => {
           <Sub
             title="Agregar Libro"
             image="http://localhost:8080/images/Plus_symbol.png"
+            onsub={() => {
+              setLibros([]);
+            }}
           ></Sub>
           {libros.map((libro) => (
             <Carts
