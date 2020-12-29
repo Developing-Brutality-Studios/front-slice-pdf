@@ -7,7 +7,7 @@ import { Link, Redirect } from "react-router-dom";
 const Home = () => {
   const [libros, setLibros] = useState([]);
   var arra = [];
-  if (libros.length == 0) {
+  if (libros.length) {
     axios
       .get("http://localhost:8080/inicio", {
         headers: {
