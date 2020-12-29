@@ -1,44 +1,66 @@
-import { useState } from 'react';
-import axios from 'axios';
-import Carts from './Carts';
-import Sub from './Sub'
-import '../css/styles-carts.css'
+import { useState } from "react";
+import axios from "axios";
+import Carts from "./Carts";
+import Sub from "./Sub";
+import "../css/styles-carts.css";
+import { Link, Redirect } from "react-router-dom";
+import ListCS from "./ListCS";
 const Home = () => {
-const [libros , setLibros] = useState('');
-   
-    
-    if(libros === ''){
-            axios.get('http://localhost:8080/inicio', 
-            {
-                headers: {
-                    'token':  localStorage.getItem('Session')
-                }
-            }
-        
-        ).then((e) => {                       
-            setLibros(e.data)
-            console.log(e.data)        
+  const [libros, setLibros] = useState([]);
+  let status = {};
 
-        }).catch(function (error) {
-            console.log(error);
-        })   
-    }
-      
+  if (libros.length === 0 || Object.keys(status) === 0) {
+    axios
+      .get("http://localhost:8080/inicio", {
+        headers: {
+          token: localStorage.getItem("Session"),
+        },
+      })
+      .then((e) => {
+        status = e;
+        setLibros(e.data.libros);
+
+        if (libros == null) {
+          setLibros([]);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  if (
+    localStorage.getItem("Session") != null &&
+    Date.now() - localStorage.getItem("lastlogin") < 86400000
+  ) {
+    console.log("liyesss");
+    console.log(libros);
     return (
-        <div>
-            <div className="container-card">
-                <Carts
-                    title='Un mundo feliz'
-                    parrafo='Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor'
-                    image='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.VRgBiLoOpkvrh8V7kQ1KBAHaKe%26pid%3DApi&f=1'
-                />
-            </div>
-            <br /><br />
-            <Sub />
+      <div className="homecontainer">
+        <ListCS></ListCS>
+        <div className="container-card">
+          <Sub
+            title="Agregar Libro"
+            image="http://localhost:8080/images/Plus_symbol.png"
+            onsub={() => {
+              setLibros([]);
+            }}
+          ></Sub>
+          {libros.map((libro) => (
+            <Carts
+              key={libro.ID}
+              title={libro.Archivo}
+              image={libro.Imagen}
+            ></Carts>
+          ))}
         </div>
-    )
+        <br />
+        <br />
+      </div>
+    );
+  } else {
+    localStorage.removeItem("Session");
+    return <Redirect to="/" />;
+  }
+};
 
-
-}
-
-export default Home
+export default Home;
