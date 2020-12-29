@@ -20,13 +20,17 @@ const MyApp = (e) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [text, setText] = useState("");
-  const [bot, setbot] = useState(false)
+  const [bot, setbot] = useState(false);
+  const [nuevaHoja, setNuevaHoja] = useState(false);
   const [arr, setArr] = useState([1])
   const [nue, setNew] = useState(false)
+  const [titulo, setTitulo] = useState('')
   const [tit, setit] = useState('')
   const [hojaTrucos, setHojaT] = useState('')
   const selectT = document.querySelectorAll(".selectect-text");
   const Changed = e => setit(e.target.value)
+  const chanTit = e => setTitulo(e.target.value)
+  const chanText = e => setText(e.target.value)
 
   selectT.forEach((elem) => {
     elem.addEventListener("mouseup", sText);
@@ -69,7 +73,8 @@ const MyApp = (e) => {
   const nTruco = () => {
     var obj = {
       'cheatsheet': hojaTrucos,
-      'contenido': text
+      'contenido': text,
+      'titulo': titulo
     }
     axios
       .post('http://localhost:8080/addCheat', obj, {
@@ -80,7 +85,8 @@ const MyApp = (e) => {
         console.log(e.data)
       })
   }
-  let n = false
+  
+  
   return (
     <>
       <div className="grid">
@@ -103,37 +109,61 @@ const MyApp = (e) => {
             Next
           </button>
           <div>
-            <div>{text}</div>
-            <div>{bot &&
-              <div className="modal" >
-                <div className="modal-content">
-                  <form>
+            <div>
+              {bot &&
+                <div className="modal" >
+                  <div className="modal-content">
+                    <div className ='grid'>
+                      <div>                        
+                        <div>
+                          {
+                            arr.length > 0 &&
+                            <input onChange={chanTit} type="text" name="Hoja" placeholder="Nombre de la nota" />
+                          }
+                        </div>
+                        <div>
+                          <textarea value={text} onChange={(e) => chanText(e)}></textarea>
+                        </div>
+                      </div>
+                      <div>
+                        {
+                          arr.length > 0 && arr.map((i) => Radio(i))
+                        }
+                      </div>
+                    </div> 
                     <div>
-                      {arr.map((i) => Radio(i))}
-                    </div>
-                    <div>{n &&
-                      <input onChange={Changed} type="text" name="Hoja" placeholder="Nombre nueva hoja " />
-                    }
-                    </div>
-                    <input type='submit' onClick={() => { n = true }}></input>
-                  </form>
-                  <button onClick={() => setbot(false)}>salir</button>
-                  {text.length > 5 && hojaTrucos.length > 10 &&
-                    <button onClick={nTruco}>  Guardar truco  </button >
-                  }
-
+                      <button onClick={() => setbot(false)}>salir</button>
+                      {text.length > 5 && hojaTrucos.length > 10 && titulo.length > 3 &&
+                        <button onClick={() =>{nTruco();setbot(false)}}>  Guardar truco  </button >
+                      }
+                      <button onClick={() => { setNuevaHoja(true); setbot(false) }}>Nueva Hoja</button >
+                    </div>                                       
+                  </div>
                 </div>
-              </div>
-            }
+              }
+              <button onClick={async () => { setArr(await Lector()); setbot(true) }} >
+                Nota Nueva
+              </button >
             </div>
-            <button onClick={async () => { setArr(await Lector()); setbot(true) }} >
-              Guardar
-            </button >
+            <div>
+              {nuevaHoja &&
+                <div className="modal" >
+                  <div className="modal-content">
+                    <input onChange={Changed} type="text" name="Hoja" placeholder="Nombre nueva hoja " />
+                    <button onClick={() => { NewS(tit); setNuevaHoja(false) }}>Nueva</button >
+                    <button onClick={() => setNuevaHoja(false)}>salir</button>
+                  </div>
+                </div>
+              }
+              <button onClick={() => setNuevaHoja(true)} >
+                Nueva Hoja
+              </button >
+            </div>
           </div>
         </div>
         <div className="selectect-text">
           <Document
-            file={base.concat('SDLGameDevelopment.pdf')}
+            file={base.concat(params.nombrepdf)}
             onLoadSuccess={onDocumentLoadSuccess}
             onItemClick={onItemClick}
             className="document selectect-text"

@@ -42,7 +42,7 @@ export const Lector = async () => {
     const Arr = arr.CheatSheets
 
     if (!Arr) {
-        return false
+        return []
     } else {
         return Arr
     }

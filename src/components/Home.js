@@ -7,7 +7,7 @@ import { Link, Redirect } from "react-router-dom";
 const Home = () => {
   const [libros, setLibros] = useState([]);
   var arra = [];
-  if (libros.length) {
+  if (libros.length == 0) {
     axios
       .get("http://localhost:8080/inicio", {
         headers: {
@@ -15,20 +15,13 @@ const Home = () => {
         },
       })
       .then((e) => {
-        setLibros(e.data.libros);
-        console.log("libros");
-        console.log(e.data);
-        arra = e.data.libros;
-        console.log("arrrra");
-        console.log(arra);
+        setLibros(e.data.libros);        
       })
       .catch(function (error) {
         console.log(error);
       });
   }
-  if (localStorage.getItem("Session") != null) {
-    console.log("arrrra");
-    console.log(arra);
+  if (localStorage.getItem("Session") != null) {   
     return (
       <div>
         <div className="container-card">
