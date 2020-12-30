@@ -9,8 +9,7 @@ export default class Carts extends Component {
         </div>
         <div className="contenido-card">
           <h3>{this.props.title}</h3>
-          <p>{this.props.parrafo}</p>
-          <a href={"/pdf/" + this.props.title}>Leer Màs</a>
+          <a href={"/pdf/" + this.props.title}>Leer Más</a>
         </div>
       </div>
     );

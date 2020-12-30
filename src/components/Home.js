@@ -4,10 +4,12 @@ import Carts from "./Carts";
 import Sub from "./Sub";
 import "../css/styles-carts.css";
 import { Link, Redirect } from "react-router-dom";
+import ListCS from "./ListCS";
 const Home = () => {
   const [libros, setLibros] = useState([]);
-  var arra = [];
-  if (libros.length == 0) {
+  let status = {};
+
+  if (libros.length === 0 || Object.keys(status) === 0) {
     axios
       .get("http://localhost:8080/inicio", {
         headers: {
@@ -15,32 +17,36 @@ const Home = () => {
         },
       })
       .then((e) => {
+        status = e;
         setLibros(e.data.libros);
-        console.log("libros");
-        console.log(e.data);
-        arra = e.data.libros;
-        console.log("arrrra");
-        console.log(arra);
+
+        if (libros == null) {
+          setLibros([]);
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
   }
-  if (localStorage.getItem("Session") != null) {
-    console.log("arrrra");
-    console.log(arra);
+  if (
+    localStorage.getItem("Session") != null &&
+    Date.now() - localStorage.getItem("lastlogin") < 86400000
+  ) {    
     return (
-      <div>
+      <div className="homecontainer">
+        <ListCS></ListCS>
         <div className="container-card">
           <Sub
             title="Agregar Libro"
             image="http://localhost:8080/images/Plus_symbol.png"
+            onsub={() => {
+              setLibros([]);
+            }}
           ></Sub>
           {libros.map((libro) => (
             <Carts
               key={libro.ID}
               title={libro.Archivo}
-              parrafo="Lorem Ipsum es simplemente el texto de relleno de las imp"
               image={libro.Imagen}
             ></Carts>
           ))}
@@ -50,6 +56,7 @@ const Home = () => {
       </div>
     );
   } else {
+    localStorage.removeItem("Session");
     return <Redirect to="/" />;
   }
 };

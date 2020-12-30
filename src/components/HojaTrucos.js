@@ -28,7 +28,9 @@ export const NewSheet = (i) => {
             headers: {
                 token: localStorage.getItem("Session"),
             },
-        })
+        }).then((e) =>{
+            return e.data
+        } )
         .catch((err) => {
             console.log(err);
         });
@@ -39,7 +41,7 @@ export const Lector = async () => {
     const Arr = arr.CheatSheets
 
     if (!Arr) {
-        return false
+        return []
     } else {
         return Arr
     }
@@ -47,7 +49,13 @@ export const Lector = async () => {
 
 
 export const NuevoTruco = (i) =>{
-    
+    const[nombre,setNombre] = useState('')
+    return (
+        <div>
+            <input type='text' onChange={(e) => setNombre(e) }/>
+            <button onClick={NewSheet(nombre)}>Nueva</button>
+        </div>
+    )
 }
 
 
