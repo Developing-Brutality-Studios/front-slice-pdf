@@ -5,8 +5,9 @@ export default class ListCS extends Component {
   constructor(props) {
     super(props);
     this.state = { cheatsheets: [] };
-    this.cargar();
+    this.cargar();    
   }
+  
   cargar() {
     if (this.state.cheatsheets.length === 0) {
       axios
