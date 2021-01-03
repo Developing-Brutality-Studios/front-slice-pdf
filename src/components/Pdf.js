@@ -77,8 +77,10 @@ const MyApp = (props) => {
   const Radio = (i,) => {
     return (
       <div >
-        <input type="radio" name='hojas' id={i.ID} value={i.ID} onClick={() => setHojaT(i.ID)} />
-        <label htmlFor={i.ID}>{i.Titulo}</label>
+        <label className='container' htmlFor='hojas'>{i.Titulo} 
+          <input className='checkbox' type="radio" name='hojas' value={i.ID} onClick={() => setHojaT(i.ID)} />             
+          <span className="checkmark"></span>
+        </label> 
       </div>
     )
   }
@@ -163,15 +165,15 @@ const MyApp = (props) => {
                           arr.length > 0 && arr.map((i) => Radio(i))
                         }
                       </div>
-                      <div>
-                        <button onClick={() => setbot(false)}>salir</button>
-                        {text.length > 5 && hojaTrucos.length > 10 && titulo.length > 3 &&
-                          <button onClick={() => { nTruco(); setbot(false) }}>  Guardar truco  </button >
-                        }
-                        <button onClick={() => { setNuevaHoja(true); setbot(false) }}>Nueva Hoja</button >
+                      
+                      <div id='botones-modal'>                        
+                        <button className='bot-m' onClick={() => setbot(false)}>salir</button>
+                          {text.length > 5 && hojaTrucos.length > 10 && titulo.length > 3 &&
+                            <button className='bot-m' onClick={() => { nTruco(); setbot(false) }}>  Guardar truco  </button >
+                          }
+                        <button className='bot-m' onClick={() => { setNuevaHoja(true); setbot(false) }}>Nueva Hoja</button >                        
                       </div>
                     </div>
-
                   </div>
                 </div>
               }
