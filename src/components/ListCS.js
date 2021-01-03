@@ -32,15 +32,15 @@ export default class ListCS extends Component {
 
   cNotas(i){
         const Json = {
-          'id': i.ID,
-          'usuario': i.Usuario,
-          'titulo': i.Titulo
+          'ID': i.ID,       
+          'Titulo': i.Titulo,
+          'Usuario':'',          
       }
-      console.log(Json)
+      JSON.stringify(Json)
       axios
-          .get('http://localhost:8080/cheatsheets', Json, {
+          .get('http://localhost:8080/addCheat', Json, {
               headers: {
-                  token: localStorage.getItem("Session"),
+                  'token': localStorage.getItem("Session"),
               },
           }).then((e) =>{
               console.log(e.data) 
@@ -58,7 +58,7 @@ export default class ListCS extends Component {
         </div>
         {this.state.cheatsheets !== null &&
           this.state.cheatsheets.map((sheet) => (
-            <div  onClick={this.cNotas(sheet)} className="titulocs" key={sheet.ID}>
+            <div  onClick={() => this.cNotas(sheet)} className="titulocs" key={sheet.ID}>
               {sheet.Titulo}
             </div>
           ))}

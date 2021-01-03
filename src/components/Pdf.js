@@ -32,14 +32,20 @@ const MyApp = (props) => {
   const [titulo, setTitulo] = useState('')
   const [tit, setit] = useState('')
   const [hojaTrucos, setHojaT] = useState('')
-////////////////////////////////
+  ////////////////////////////////
   selectT.forEach((elem) => {
     elem.addEventListener("mouseup", sText);
   });
   ////////////////////////////////////Aroca
   const Changed = e => setit(e.target.value)
   const chanTit = e => setTitulo(e.target.value)
-  const chanText = e => setText(e.target.value)
+  const chanText = e => {
+     let i = e.target.value
+     let x = i.replace("\&ensp", "J");	
+      
+    setText(x)
+
+  }
 
 
   function sText(event) {
@@ -92,7 +98,7 @@ const MyApp = (props) => {
         console.log(e.data)
       })
   }
-  
+
   /////////////////////////////////////
 
   return (
@@ -132,42 +138,44 @@ const MyApp = (props) => {
               -
             </button>
           </div>
-          
 
-          <div>
+
+          <div className='botones-Modal'>
             <div>
               {bot &&
                 <div className="modal" >
                   <div className="modal-content">
-                    <div className ='grid'>
-                      <div>                        
-                        <div>
+                    <div className='grid-modal' >
+                      
+                      <div id='text'>
+                        
                           {
                             arr.length > 0 &&
-                            <input onChange={chanTit} type="text" name="Hoja" placeholder="Nombre de la nota" />
+                            <input  id='titulo' onChange={chanTit} type="text" name="Hoja" placeholder="Nombre de la nota" />
                           }
-                        </div>
-                        <div>
-                          <textarea value={text} onChange={(e) => chanText(e)}></textarea>
-                        </div>
+                        
+                          <textarea id='textArea' value={text} onChange={(e) => chanText(e)}></textarea>
+
+                        
                       </div>
-                      <div>
+                      <div id='radio'>
                         {
                           arr.length > 0 && arr.map((i) => Radio(i))
                         }
                       </div>
-                    </div> 
-                    <div>
-                      <button onClick={() => setbot(false)}>salir</button>
-                      {text.length > 5 && hojaTrucos.length > 10 && titulo.length > 3 &&
-                        <button onClick={() =>{nTruco();setbot(false)}}>  Guardar truco  </button >
-                      }
-                      <button onClick={() => { setNuevaHoja(true); setbot(false) }}>Nueva Hoja</button >
-                    </div>                                       
+                      <div>
+                        <button onClick={() => setbot(false)}>salir</button>
+                        {text.length > 5 && hojaTrucos.length > 10 && titulo.length > 3 &&
+                          <button onClick={() => { nTruco(); setbot(false) }}>  Guardar truco  </button >
+                        }
+                        <button onClick={() => { setNuevaHoja(true); setbot(false) }}>Nueva Hoja</button >
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               }
-              <button onClick={async () => { setArr(await Lector()); setbot(true) }} >
+              <button className='bot-m' onClick={async () => { setArr(await Lector()); setbot(true) }} >
                 Nota Nueva
               </button >
             </div>
@@ -181,12 +189,12 @@ const MyApp = (props) => {
                   </div>
                 </div>
               }
-              <button onClick={() => setNuevaHoja(true)} >
+              <button className='bot-m' onClick={() => setNuevaHoja(true)} >
                 Nueva Hoja
               </button >
             </div>
           </div>
-          
+
         </div>
         <div className="selectect-text">
           <Document

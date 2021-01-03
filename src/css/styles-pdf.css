@@ -208,19 +208,40 @@
   grid-column: 2;
   grid-row: 2;
 }
+
 .grid {
   margin-top: 0.3vw;
   display: grid;
   grid-template-columns: 20% 80%;
-  grid-template-rows: 4% 96%;
+  grid-template-rows: 5% 95%;
+}
+/*//////////////////////////////////////////////////////// Nav pdf */
+.botones-Modal{  
+  display: flex;
+  grid-column: 4;
+  flex-flow: row;
+  gap: 0.6vw;
+  
+}
+.bot-m{
+  background-color: #0082e6;
+  color: white;
+  font-weight: bold;
+  border-style: none;
+  height: 2.2vw;
+  width: 5.5vw;
+  border: #888;
+  border-style: solid;
+  border-width: 0.01vw;
 }
 .pdfnav {
   display: grid;
-  grid-template-columns: 15% 45% 25% 15%;
+  grid-template-columns: 15% 35% 25% 25%;
   grid-row: 1;
   grid-column: 2;
   width: 70%;
   align-content: center;
+  background-color: #888;
 }
 #buttonav {
   display: flex;
@@ -264,11 +285,11 @@
   width: 2.5vw;
   margin-bottom: 0.1vw;
 }
-.modal {
-  /* Hidden by default */
+/*//////////////////////////////////// Modal //////////////////////////////////*/
+.modal {  
  position: fixed; /* Stay in place */
- z-index: 1; /* Sit on top */
- padding-top: 100px; /* Location of the box */
+ z-index: 100; /* Sit on top */
+ padding-top: 5vw; /* Location of the box */
  left: 0;
  top: 0;
  width: 100%; /* Full width */
@@ -280,11 +301,14 @@
 
 /* Modal Content */
 .modal-content {
- background-color: #fefefe;
+ background-color: #fefefe; 
  margin: auto;
  padding: 20px;
  border: 1px solid #888;
  width: 80%;
+ height: 80%;
+ display: grid;
+ grid-template-columns: 8% 92%;
 }
 
 /* The Close Button */
@@ -300,4 +324,28 @@
  color: #000;
  text-decoration: none;
  cursor: pointer;
+}
+.grid-modal{
+  display: grid;
+  grid-column: 2;
+  grid-template-columns: 60% 40%;
+}
+#radio {
+  grid-column: 2;
+}
+#text{
+  grid-column: 1;
+  display: flex;
+  flex-flow: column;
+  background: #ff0;
+  gap: 2%;
+}
+#textArea{
+  width: 80%;
+  height: 90%;
+}
+#titulo{
+  width: 80%;
+  height: 15%;
+  font-size: 1.3vw;
 }
