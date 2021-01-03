@@ -4,14 +4,15 @@
     width: 300px;
     padding: 40px;
     position: absolute;
+    z-index: 1;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);    
     text-align: center;
-    background: #2c3e50;
+    
 }
 .box h2 {
-    color: white;
+    color:black;
     text-transform: uppercase;
     font-weight: 500;
 }
@@ -21,21 +22,21 @@
     display: block;
     margin: 20px auto;
     text-align: center;
-    border: 2px solid white;
+    border: 2px solid black;
     padding: 14px 10px;
     width: 200px;
     outline: none;
-    color: white;
-    border-radius: 24px;
+    color: black;
+    
     transition: 0.25s;
 }
 .box label{
-    color: white;
+    color: black ;
     text-transform: uppercase;
     font-weight: 250;
 }
 .box input[type = "text"]:focus,.box input[type = 'password']:focus{    
-    border-color: #2ecc71;    
+    border-color: #1264a3;   
 }
 
 .box button{
@@ -44,14 +45,13 @@
     display: block;
     margin: 20px auto;
     text-align: center;
-    border: 2px solid  #2ecc71;
+    border: 2px solid  #1264a3;
     padding: 14px 40px;    
     outline: none;
-    color: white;
-    border-radius: 24px;
+    color: black;    
     transition: 0.25s;
     cursor: pointer;
 }
 .box button:hover{
-    background: #2ecc71;
+    background: #1264a3;
 }

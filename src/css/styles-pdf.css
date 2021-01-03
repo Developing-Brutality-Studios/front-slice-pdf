@@ -375,3 +375,19 @@
   width: 25px;
   background-color: #ccc;
 }
+/*///////////////////////// MODAL 2 ////////////////////*/
+.modal-content2 {
+  background-color: #fefefe; 
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 20%;
+  display: grid;
+  grid-template-columns: 8% 92%;  
+ }
+ #titulo2{
+  width: 80%;
+  height: 30%;
+  font-size: 1.3vw;
+}

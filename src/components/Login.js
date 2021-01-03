@@ -50,7 +50,9 @@ const Login = (t) => {
   if (localStorage.getItem("Session") === null) {
     return (
       <form className="box" onSubmit={onSubmit}>
-        <h2>Loging</h2>
+        <div>
+          <h2>Loging</h2>
+        </div>        
         <input
           onChange={onUsernameChanged}
           type="text"

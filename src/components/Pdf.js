@@ -147,18 +147,13 @@ const MyApp = (props) => {
               {bot &&
                 <div className="modal" >
                   <div className="modal-content">
-                    <div className='grid-modal' >
-                      
-                      <div id='text'>
-                        
+                    <div className='grid-modal' >                      
+                      <div id='text'>                        
                           {
                             arr.length > 0 &&
                             <input  id='titulo' onChange={chanTit} type="text" name="Hoja" placeholder="Nombre de la nota" />
-                          }
-                        
-                          <textarea id='textArea' value={text} onChange={(e) => chanText(e)}></textarea>
-
-                        
+                          }                        
+                          <textarea id='textArea' value={text} onChange={(e) => chanText(e)}></textarea>                        
                       </div>
                       <div id='radio'>
                         {
@@ -181,13 +176,18 @@ const MyApp = (props) => {
                 Nota Nueva
               </button >
             </div>
-            <div>
+            <div >
               {nuevaHoja &&
                 <div className="modal" >
-                  <div className="modal-content">
-                    <input onChange={Changed} type="text" name="Hoja" placeholder="Nombre nueva hoja " />
-                    <button onClick={() => { NewS(tit); setNuevaHoja(false) }}>Nueva</button >
-                    <button onClick={() => setNuevaHoja(false)}>salir</button>
+                  <div className=" modal-content2 ">
+                    <div className='grid-modal'>
+                    
+                    <div id='botones-modal'>
+                    <input id='titulo2' onChange={Changed} type="text" name="Hoja" placeholder="Nombre nueva hoja " />
+                      <button className='bot-m' onClick={() => { NewS(tit); setNuevaHoja(false) }}>Nueva</button >
+                      <button className='bot-m' onClick={() => setNuevaHoja(false)}>salir</button>
+                    </div>                    
+                    </div>
                   </div>
                 </div>
               }
