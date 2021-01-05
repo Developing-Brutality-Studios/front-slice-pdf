@@ -30,7 +30,7 @@
   border-right-style: solid;
 }
 .titulocs {
-  display: grid;
+  display: flex;
   height: 3vw;
   justify-content: center;
   font-size: 2vw;

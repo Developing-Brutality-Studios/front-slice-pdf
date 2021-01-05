@@ -5,7 +5,7 @@ import { Document } from "react-pdf/dist/esm/entry.webpack";
 import React, { Component } from "react";
 import "../css/styles-pdf.css";
 import { useParams } from "react-router-dom";
-import { NuevoTruco, Lector, NewSheet } from './HojaTrucos';
+import { Lector, NewSheet } from './HojaTrucos';
 
 const NewS = (i) => {
   NewSheet(i)
@@ -27,8 +27,7 @@ const MyApp = (props) => {
   /////////////////////////////////Aroca
   const [bot, setbot] = useState(false);
   const [nuevaHoja, setNuevaHoja] = useState(false);
-  const [arr, setArr] = useState([1])
-  const [nue, setNew] = useState(false)
+  const [arr, setArr] = useState([1])  
   const [titulo, setTitulo] = useState('')
   const [tit, setit] = useState('')
   const [hojaTrucos, setHojaT] = useState('')
@@ -39,13 +38,7 @@ const MyApp = (props) => {
   ////////////////////////////////////Aroca
   const Changed = e => setit(e.target.value)
   const chanTit = e => setTitulo(e.target.value)
-  const chanText = e => {
-     let i = e.target.value
-     let x = i.replace("\&ensp", "J");	
-      
-    setText(x)
-
-  }
+  const chanText = e => {setText(e.target.value)}
 
 
   function sText(event) {
@@ -77,9 +70,9 @@ const MyApp = (props) => {
   const Radio = (i,) => {
     return (
       <div >
-        <label className='container' htmlFor='hojas'>{i.Titulo} 
-          <input className='checkbox' type="radio" name='hojas' value={i.ID} onClick={() => setHojaT(i.ID)} />             
-          <span className="checkmark"></span>
+        <label className='container' htmlFor='hojas'> 
+          <input className='checkbox' type="radio" name='hojas' value={i.ID} onClick={() => setHojaT(i.ID)} />                       
+          {i.Titulo}
         </label> 
       </div>
     )
@@ -100,6 +93,7 @@ const MyApp = (props) => {
         console.log(e.data)
       })
   }
+  console.log(window.screen.width)
 
   /////////////////////////////////////
 
@@ -115,7 +109,7 @@ const MyApp = (props) => {
             >
               Anterior
             </button>
-            Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
+            <p>Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}</p>
             <button
               type="button"
               disabled={pageNumber >= numPages}
@@ -180,8 +174,7 @@ const MyApp = (props) => {
               {nuevaHoja &&
                 <div className="modal" >
                   <div className=" modal-content2 ">
-                    <div className='grid-modal'>
-                    
+                    <div className='grid-modal'>                    
                     <div id='botones-modal'>
                     <input id='titulo2' onChange={Changed} type="text" name="Hoja" placeholder="Nombre nueva hoja " />
                       <button className='bot-m' onClick={() => { NewS(tit); setNuevaHoja(false) }}>Nueva</button >

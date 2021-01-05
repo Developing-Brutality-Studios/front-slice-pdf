@@ -220,13 +220,13 @@
   display: flex;
   grid-column: 4;
   flex-flow: row;
-  gap: 0.6vw;
-  
+  gap: 0.6vw; 
 }
 .bot-m{
   background-color: #0082e6;
   color: white;
   font-weight: bold;
+  font-size: 0.8vw;
   border-style: none;
   height: 2.2vw;
   width: 5.5vw;
@@ -257,6 +257,7 @@
   border-style: none;
   height: 2.2vw;
   width: 5.5vw;
+  font-size: 0.8vw;
   border: #888;
   border-style: solid;
   border-width: 0.01vw;
@@ -267,10 +268,10 @@
 #buttonzoom {
   grid-column: 3;
   display: flex;
-  flex-flow: row;
-  align-items: center;
+  flex-flow: row;  
   gap: 0.6vw;
-  justify-content: left;
+  justify-content: center;
+  font-size: 0.8vw;
 }
 #buttonzoom button {
   background-color: #0082e6;
@@ -328,16 +329,18 @@
 .grid-modal{
   display: grid;
   grid-column: 2;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 50% 50%;
 }
 #radio {
-  grid-column: 2;
+  grid-column: 2;  
 }
 #text{
   grid-column: 1;
   display: flex;
   flex-flow: column;  
   gap: 2%;
+  border-right: #d6d4ce;
+  border-right-style: solid;
 }
 #textArea{
   width: 80%;
@@ -353,9 +356,10 @@
   display: flex;
   gap:2%;
   margin-top: 2%;
+  font-size: 2vw;
 }
 .container {
-  display: block;
+  display: flex;
   position: relative;
   padding-left: 35px;
   margin-bottom: 12px;
@@ -364,16 +368,22 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none;  
+  font-size: 1.6vw;
+  align-items: center;
 }
 
+
 .checkbox {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  height: 25px;
-  width: 25px;
+  height: 1.5vw;
+  width: 1.5vw;
   background-color: #ccc;
+  text-align: center;
+  margin-right: 2%;
+  
 }
 /*///////////////////////// MODAL 2 ////////////////////*/
 .modal-content2 {

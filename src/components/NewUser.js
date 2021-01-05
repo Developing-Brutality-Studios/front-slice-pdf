@@ -125,7 +125,7 @@ export default class NewUser extends Component {
         if (!this.state.token) {
             return (
                 <form className="box" onSubmit={this.onSubmit}>
-                    <h2>Loging</h2>
+                    <h2 id='newUser'>Loging</h2>
                     <div>
                         <input
                             onChange={this.onImputChanges}

@@ -32,7 +32,7 @@ export const connect = async (username, password) => {
 const Login = (t) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
+  const [, setToken] = useState("");
 
   const onUsernameChanged = (e) => setUsername(e.target.value);
   const onPasswordChanged = (e) => setPassword(e.target.value);
@@ -52,7 +52,8 @@ const Login = (t) => {
       <form className="box" onSubmit={onSubmit}>
         <div>
           <h2>Loging</h2>
-        </div>        
+        </div>
+        <div>
         <input
           onChange={onUsernameChanged}
           type="text"
@@ -65,6 +66,7 @@ const Login = (t) => {
           name="password"
           placeholder="Password"
         />
+        </div>                
         <button type="submit" value="Login">
           Loging
         </button>
