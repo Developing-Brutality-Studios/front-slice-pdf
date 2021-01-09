@@ -4,6 +4,7 @@ import Heade from "./components/Header";
 import Login from "./components/Login";
 import NewUser from "./components/NewUser";
 import Pdf from "./components/Pdf";
+import ListCS from './components/ListCS';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
         <NewUser />
       </Route>
       <Route path="/pdf/:nombrepdf" name="pdf" component={Pdf}></Route>
+      <Route  path='/listNotas'>
+        <ListCS/>
+      </Route>
     </Router>
   );
 }

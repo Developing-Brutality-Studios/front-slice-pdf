@@ -4,6 +4,7 @@ import { faAlignJustify } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, Redirect } from "react-router-dom";
 import { setTok, selectToken } from "../redux/reducer";
+import ListNotas from './ListCS'
 import "../css/styles-nav.css";
 
 const Header = ({ posts }) => {
@@ -36,6 +37,9 @@ const Header = ({ posts }) => {
         <ul>
           <li>
             <a href="/home">HomePage</a>
+          </li>
+          <li>
+            <a href='/listNotas'>lista notas</a>
           </li>
           <li>{log()}</li>
         </ul>

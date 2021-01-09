@@ -4,7 +4,7 @@ import Carts from "./Carts";
 import Sub from "./Sub";
 import "../css/styles-carts.css";
 import { Redirect } from "react-router-dom";
-import ListCS from "./ListCS";
+
 const Home = () => {
   const [libros, setLibros] = useState([]);
   let status = {};
@@ -33,8 +33,7 @@ const Home = () => {
     Date.now() - localStorage.getItem("lastlogin") < 86400000
   ) {    
     return (
-      <div className="homecontainer">
-        <ListCS></ListCS>
+      <div className="homecontainer">        
         <div className="container-card">
           <Sub
             title="Agregar Libro"
