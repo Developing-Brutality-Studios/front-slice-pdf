@@ -105,6 +105,8 @@ const MyApp = (props) => {
   
 
   /////////////////////////////////////
+  var libro = {url: base.concat(params.nombrepdf),
+    httpHeaders:{token: localStorage.getItem('Session')} }
 
   return (
     <>
@@ -202,7 +204,7 @@ const MyApp = (props) => {
         </div>
         <div className="selectect-text">
           <Document
-            file={base.concat(params.nombrepdf)}
+            file={ libro   }
             onLoadSuccess={onDocumentLoadSuccess}
             onItemClick={onItemClick}
             className="document selectect-text"
