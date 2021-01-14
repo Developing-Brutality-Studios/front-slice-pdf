@@ -11,16 +11,14 @@ const NewS = (i) => {
   NewSheet(i)
 }
 
-
 const MyApp = (props) => {
 
   var base = "http://localhost:8080/file/";
   var params = useParams();
 
-
-
+  
   const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState( 1 + parseInt(localStorage.getItem(params.nombrepdf )));
   const [text, setText] = useState("");
   const [escala, setscala] = useState(1.3);
   const selectT = document.querySelectorAll(".selectect-text");
@@ -40,6 +38,10 @@ const MyApp = (props) => {
   const chanTit = e => setTitulo(e.target.value)
   const chanText = e => {setText(e.target.value)}
 
+  if(pageNumber === null && localStorage.getItem(params.nombrepdf ) === null){
+    setPageNumber(1)
+  }
+
 
   function sText(event) {
     const selectT = window.getSelection().toString().trim();
@@ -48,15 +50,22 @@ const MyApp = (props) => {
 
   function onItemClick({ pageNumber: itemPageNumber }) {
     setPageNumber(itemPageNumber);
+    localStorage.setItem( params.nombrepdf, itemPageNumber )    
   }
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
-    setPageNumber(1);
+    if( localStorage.getItem(params.nombrepdf ) === null){
+      setPageNumber(1)
+    } else {
+      console.log(localStorage.getItem(params.nombrepdf))      
+      setPageNumber( parseInt(localStorage.getItem(params.nombrepdf )))
+    }    
   }
 
   function changePage(offset) {
     setPageNumber((prevPageNumber) => prevPageNumber + offset);
+    localStorage.setItem( params.nombrepdf, pageNumber )
   }
 
   function previousPage() {
@@ -93,7 +102,7 @@ const MyApp = (props) => {
         console.log(e.data)
       })
   }
-  console.log(window.screen.width)
+  
 
   /////////////////////////////////////
 

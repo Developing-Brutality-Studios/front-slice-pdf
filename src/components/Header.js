@@ -4,7 +4,6 @@ import { faAlignJustify } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, Redirect } from "react-router-dom";
 import { setTok, selectToken } from "../redux/reducer";
-import ListNotas from './ListCS'
 import "../css/styles-nav.css";
 
 const Header = ({ posts }) => {
