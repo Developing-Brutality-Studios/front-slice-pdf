@@ -48,6 +48,7 @@ export default class ListCS extends Component {
   }
 
   cNotas(i) {
+    
     const notas = [{
       ID: "5feaacac0d21a30522c98e30",
       Titulo: "ejemplo1",
@@ -78,28 +79,30 @@ export default class ListCS extends Component {
       Cheatsheet: "5feaac630d21a305as22c98e2b",
       Contenido: "Every\tbook\tyou’ve\tever\tread\tperpetuates\ta\tbig\tfat\tlie.\tAnd\tI’m\there\tto\tout\tthepublishing\tindustry’s\tdirty\tlittle\tsecret:\tBooks\tare\tnot\t“by”\tonly\tone\tperson.Yes,\tyou\tsee\tonly\tone\tname\ton\tmany\tbook\tcovers\t(including\tthis\tone),\tbut\tittakes\ta\tteam\tof\tdedicated\tpeople\tto\tpull\toff\tthe\tfinal\tproduct.\tAuthors\tcouldnot\tdo\tit\talone;\tI\tcertainly\tcould\tnot\thave\tdone\tit\talone.\tSo\tI\twant\tto\tthank\tallthose\twho\thelped\tmake\tthis\tnew\tedition\ta\trealit"
     }]
+
     this.mostrar(notas)
     this.setState({ hoja: i.ID })
 
 
-    /*const Json = {
+    const Json = {
       'ID': i.ID,       
       'Titulo': i.Titulo,
       'Usuario':'',          
   }
   JSON.stringify(Json)
   axios
-      .get('http://localhost:8080/addCheat', Json, {
+      .put('http://localhost:8080/addCheat', Json, {
           headers: {
               'token': localStorage.getItem("Session"),
           },
       }).then((e) =>{
-          console.log(e.data) 
-      } )
-      .catch((err) => {
-          console.log(err);
-      });*/
 
+          this.mostrar(e.data.CheatSheet)
+
+      } )
+      .catch((err) => {        
+          console.log(err);
+      });
   }
 
   render() {
@@ -113,6 +116,7 @@ export default class ListCS extends Component {
             {this.state.cheatsheets !== null &&
               this.state.cheatsheets.map((sheet) => (
                 <div  key={sheet.ID}>
+                  {console.log(sheet)}
                   <div id='tit1' onClick={() => this.cNotas(sheet)} >
                       {this.state.hoja === sheet.ID ? 
                       <div className=' tituloActivo'>

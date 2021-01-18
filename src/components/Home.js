@@ -19,7 +19,7 @@ const Home = () => {
       .then((e) => {
         status = e;
         setLibros(e.data.libros);
-
+        console.log(e.data.libros)
         if (libros == null) {
           setLibros([]);
         }
@@ -47,7 +47,8 @@ const Home = () => {
               key={libro.ID}
               title={libro.Archivo}
               image={libro.Imagen}
-            ></Carts>
+            > 
+            </Carts>
           ))}
         </div>
         <br />

@@ -11,7 +11,7 @@ const NewS = (i) => {
   NewSheet(i)
 }
 
-const MyApp = (props) => {
+export const MyApp = (props) => {
 
   var base = "http://localhost:8080/file/";
   var params = useParams();
@@ -105,8 +105,10 @@ const MyApp = (props) => {
   
 
   /////////////////////////////////////
-  var libro = {url: base.concat(params.nombrepdf),
-    httpHeaders:{token: localStorage.getItem('Session')} }
+  const libro = {
+    url: base.concat(params.nombrepdf),
+    httpHeaders:{token: localStorage.getItem('Session')} 
+  }  
 
   return (
     <>
@@ -203,18 +205,21 @@ const MyApp = (props) => {
 
         </div>
         <div className="selectect-text">
+          <div >
           <Document
-            file={ libro   }
+            file={libro }
             onLoadSuccess={onDocumentLoadSuccess}
             onItemClick={onItemClick}
             className="document selectect-text"
           >
             <Page
               pageNumber={pageNumber}
-              className="hoja  selectect-text"
+              className="hoja"
               scale={escala.toString()}
             />
           </Document>
+          </div>
+          
         </div>
       </div>
 
@@ -222,14 +227,4 @@ const MyApp = (props) => {
   );
 };
 
-export default class Pdf extends Component {
-  render() {
-    return (
-      <div>
-        <div className="hojas">
-          <MyApp />
-        </div>
-      </div>
-    );
-  }
-}
+export default MyApp
