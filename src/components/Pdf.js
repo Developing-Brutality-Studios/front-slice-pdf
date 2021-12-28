@@ -15,13 +15,15 @@ const MyApp = (props) => {
 
   if (lib === "") {
     axios
-      .get("http://localhost:4008/download", {
+      .get(base+params.nombrepdf, {
         headers: {
           token: localStorage.getItem("Session"),
         },
       })
       .then((e) => {
         lib = e.data;
+      }).catch((e)=>{
+        console.log(e);
       });
   }
 

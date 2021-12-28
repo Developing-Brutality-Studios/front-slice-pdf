@@ -16,14 +16,19 @@ export const connect = async (username, password) => {
   await axios
     .put("http://localhost:8080/iniciosesion", user)
     .then((e) => {
+      console.log(e.data.Value);
+      console.log(Array.isArray(e.data.Value));
       localStorage.setItem("Session", e.data.Value);
       localStorage.setItem("lastlogin", Date.now());
+      token = e.data.Value;
     })
     .catch(function (error) {
       console.log(error);
     })
     .then(() => {
       token = localStorage.getItem("Session");
+      console.log("es token array");
+      console.log(Array.isArray(token));
     });
   //}
   return token;
