@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./components/Home";
-import Heade from "./components/Header";
+
 import Login from "./components/Login";
 import NewUser from "./components/NewUser";
 import Pdf from "./components/Pdf";
@@ -8,8 +8,7 @@ import ListCS from './components/ListCS';
 
 function App() {
   return (
-    <Router>
-      <Heade />
+    <Router>      
       <Route path="/home">
         <Home />
       </Route>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../css/styles-login.css";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
+import Header from "./Header";
 
 export const connect = async (username, password) => {
   //var tokenset = false;
@@ -49,31 +50,40 @@ const Login = (t) => {
 
   if (localStorage.getItem("Session") === null) {
     return (
-      <form className="box" onSubmit={onSubmit}>
-        <div>
-          <h2>Loging</h2>
-        </div>
-        <div>
-        <input
-          onChange={onUsernameChanged}
-          type="text"
-          name="username"
-          placeholder="Username"
-        />
-        <input
-          onChange={onPasswordChanged}
-          type="password"
-          name="password"
-          placeholder="Password"
-        />
-        </div>                
-        <button type="submit" value="Login">
-          Loging
-        </button>
-        <Link to="./newUser">
-          <h3>Nuevo usuario</h3>
-        </Link>
-      </form>
+      <div className="contenedorPrincipal">
+        <header className="header">
+          <Header />
+        </header>
+        <body className="body">
+          <form className="box" onSubmit={onSubmit}>
+            <div className="contenedorForumarioLogin">
+              <div>
+                <h2>Loging</h2>
+              </div>
+              <div>
+                <input
+                  onChange={onUsernameChanged}
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                />
+                <input
+                  onChange={onPasswordChanged}
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                />
+              </div>
+              <button type="submit" value="Login">
+                Loging
+              </button>
+              <Link className="linkNuevoUsuario" to="./newUser">
+                <h3>Nuevo usuario</h3>
+              </Link>
+            </div>
+          </form>
+        </body>
+      </div>
     );
   } else {
     //dispatch(setTok(token || ""));
