@@ -13,7 +13,7 @@
 
 .homecontainer {
   display: grid;
-  grid-template-columns: 10% 90%;
+  grid-template-columns: 25% 75%;
 }
 
 .container-card {
@@ -30,7 +30,7 @@
   border-right-style: solid;
 }
 .titulocs {
-  display: flex;
+  display: grid;
   height: 3vw;
   justify-content: center;
   font-size: 2vw;
@@ -100,4 +100,3 @@
     margin: 15px;
   }
 }
-

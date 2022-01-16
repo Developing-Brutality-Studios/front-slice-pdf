@@ -208,40 +208,19 @@
   grid-column: 2;
   grid-row: 2;
 }
-
 .grid {
   margin-top: 0.3vw;
   display: grid;
   grid-template-columns: 20% 80%;
-  grid-template-rows: 5% 95%;
-}
-/*//////////////////////////////////////////////////////// Nav pdf */
-.botones-Modal{  
-  display: flex;
-  grid-column: 4;
-  flex-flow: row;
-  gap: 0.6vw; 
-}
-.bot-m{
-  background-color: #0082e6;
-  color: white;
-  font-weight: bold;
-  font-size: 0.8vw;
-  border-style: none;
-  height: 2.2vw;
-  width: 5.5vw;
-  border: #888;
-  border-style: solid;
-  border-width: 0.01vw;
+  grid-template-rows: 4% 96%;
 }
 .pdfnav {
   display: grid;
-  grid-template-columns: 15% 35% 25% 25%;
+  grid-template-columns: 15% 45% 25% 15%;
   grid-row: 1;
   grid-column: 2;
   width: 70%;
   align-content: center;
-  
 }
 #buttonav {
   display: flex;
@@ -257,7 +236,6 @@
   border-style: none;
   height: 2.2vw;
   width: 5.5vw;
-  font-size: 0.8vw;
   border: #888;
   border-style: solid;
   border-width: 0.01vw;
@@ -268,10 +246,10 @@
 #buttonzoom {
   grid-column: 3;
   display: flex;
-  flex-flow: row;  
+  flex-flow: row;
+  align-items: center;
   gap: 0.6vw;
-  justify-content: center;
-  font-size: 0.8vw;
+  justify-content: left;
 }
 #buttonzoom button {
   background-color: #0082e6;
@@ -285,119 +263,4 @@
   height: 2.5vw;
   width: 2.5vw;
   margin-bottom: 0.1vw;
-}
-/*//////////////////////////////////// Modal //////////////////////////////////*/
-.modal {  
- position: fixed; /* Stay in place */
- z-index: 100; /* Sit on top */
- padding-top: 5vw; /* Location of the box */
- left: 0;
- top: 0;
- width: 100%; /* Full width */
- height: 100%; /* Full height */
- overflow: auto; /* Enable scroll if needed */
- background-color: rgb(0,0,0); /* Fallback color */
- background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
- background-color: #fefefe; 
- margin: auto;
- padding: 20px;
- border: 1px solid #888;
- width: 80%;
- height: 80%;
- display: grid;
- grid-template-columns: 8% 92%;
-}
-
-/* The Close Button */
-.close {
- color: #aaaaaa;
- float: right;
- font-size: 28px;
- font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
- color: #000;
- text-decoration: none;
- cursor: pointer;
-}
-.grid-modal{
-  display: grid;
-  grid-column: 2;
-  grid-template-columns: 50% 50%;
-}
-#radio {
-  grid-column: 2;  
-}
-#text{
-  grid-column: 1;
-  display: flex;
-  flex-flow: column;  
-  gap: 2%;
-  border-right: #d6d4ce;
-  border-right-style: solid;
-}
-#textArea{
-  width: 80%;
-  height: 26vw;
-}
-#titulo{
-  width: 80%;
-  height: 15%;
-  font-size: 1.3vw;
-}
-
-#botones-modal {
-  display: flex;
-  gap:2%;
-  margin-top: 2%;
-  font-size: 2vw;
-}
-.container {
-  display: flex;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;  
-  font-size: 1.6vw;
-  align-items: center;
-}
-
-
-.checkbox {
-  position: relative;
-  top: 0;
-  left: 0;
-  height: 1.5vw;
-  width: 1.5vw;
-  background-color: #ccc;
-  text-align: center;
-  margin-right: 2%;
-  
-}
-/*///////////////////////// MODAL 2 ////////////////////*/
-.modal-content2 {
-  background-color: #fefefe; 
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  height: 20%;
-  display: grid;
-  grid-template-columns: 8% 92%;  
- }
- #titulo2{
-  width: 80%;
-  height: 30%;
-  font-size: 1.3vw;
 }
