@@ -37,6 +37,9 @@ const Header = ({ posts }) => {
           <li>
             <a href="/home">HomePage</a>
           </li>
+          <li>
+            <a href='/listNotas'>lista notas</a>
+          </li>
           <li>{log()}</li>
         </ul>
       </nav>

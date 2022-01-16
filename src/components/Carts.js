@@ -1,10 +1,15 @@
+
 import { Component } from "react";
+import axios from 'axios';
 
 export default class Carts extends Component {
+
+
   render() {
     return (
       <div className="card">
         <div>
+          
           <img src={this.props.image} alt={this.props.title} />
         </div>
         <div className="contenido-card">
