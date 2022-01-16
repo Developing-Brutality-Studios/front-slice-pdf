@@ -9,7 +9,7 @@ body {
   font-family: monospace;
 }
 nav {
-  background:#1264a3;
+  background: #0082e6;
   height: 80px;
   width: 100%;
 }
@@ -38,7 +38,7 @@ nav ul li a {
 }
 a.active,
 a:hover {
-  background: #1264a3;
+  background: #1b9bff;
   transition: 0.5s;
 }
 .checkbtn {

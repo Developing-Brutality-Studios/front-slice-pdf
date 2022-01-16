@@ -3,8 +3,8 @@ import axios from "axios";
 import Carts from "./Carts";
 import Sub from "./Sub";
 import "../css/styles-carts.css";
-import { Redirect } from "react-router-dom";
-
+import { Link, Redirect } from "react-router-dom";
+import ListCS from "./ListCS";
 const Home = () => {
   const [libros, setLibros] = useState([]);
   let status = {};
@@ -19,7 +19,7 @@ const Home = () => {
       .then((e) => {
         status = e;
         setLibros(e.data.libros);
-        console.log(e.data.libros)
+
         if (libros == null) {
           setLibros([]);
         }
@@ -31,9 +31,12 @@ const Home = () => {
   if (
     localStorage.getItem("Session") != null &&
     Date.now() - localStorage.getItem("lastlogin") < 86400000
-  ) {    
+  ) {
+    console.log("liyesss");
+    console.log(libros);
     return (
-      <div className="homecontainer">        
+      <div className="homecontainer">
+        <ListCS></ListCS>
         <div className="container-card">
           <Sub
             title="Agregar Libro"
@@ -47,8 +50,7 @@ const Home = () => {
               key={libro.ID}
               title={libro.Archivo}
               image={libro.Imagen}
-            > 
-            </Carts>
+            ></Carts>
           ))}
         </div>
         <br />
