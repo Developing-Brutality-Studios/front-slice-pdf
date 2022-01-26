@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../css/styles-login.css";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
-import Header from "./Header";
+import DashboardLogin from "./dashboardLogin";
 
 export const connect = async (username, password) => {
   //var tokenset = false;
@@ -51,9 +51,6 @@ const Login = (t) => {
   if (localStorage.getItem("Session") === null) {
     return (
       <div className="contenedorPrincipal">
-        <header className="header">
-          <Header />
-        </header>
         <body className="body">
           <form className="box" onSubmit={onSubmit}>
             <div className="contenedorForumarioLogin">
@@ -83,6 +80,10 @@ const Login = (t) => {
             </div>
           </form>
         </body>
+        
+        <div className="contenedorSecundario">  
+                  <DashboardLogin/>
+        </div>
       </div>
     );
   } else {
