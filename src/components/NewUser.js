@@ -102,7 +102,7 @@ export default class NewUser extends Component {
 
         if (!formValid(state)) {
             const log = JSON.stringify(data)
-            axios.put('http://localhost:8080/registro/',
+            axios.put('http://localhost:9080/registro/',
                 log
             ).then( async (e) => {
                 if (e.data.id) {

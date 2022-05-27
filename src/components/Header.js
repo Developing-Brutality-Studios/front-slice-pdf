@@ -32,7 +32,7 @@ const Header = ({ posts }) => {
         <label htmlFor="check" className="checkbtn">
           <FontAwesomeIcon icon={faAlignJustify} />
         </label>
-        <label className="logo">Slice-Pdf</label>
+        <label className="logo">ChatBot</label>
         <ul>
           <li>
             <a href="/home">HomePage</a>

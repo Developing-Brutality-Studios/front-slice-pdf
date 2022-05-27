@@ -11,14 +11,12 @@ const Home = () => {
 
   if (libros.length === 0 || Object.keys(status) === 0) {
     axios
-      .get("http://localhost:8080/inicio", {
-        headers: {
-          token: localStorage.getItem("Session"),
-        },
+      .post("https://apibotservice.azurewebsites.net/apiBot/services/AccessApi/getProjects", {
+        "idUser":"testUser"
       })
       .then((e) => {
         status = e;
-        setLibros(e.data.libros);
+        setLibros(e.data.projects);
 
         if (libros == null) {
           setLibros([]);
@@ -36,7 +34,7 @@ const Home = () => {
     console.log(libros);
     return (
       <div className="homecontainer">
-        <ListCS></ListCS>
+        
         <div className="container-card">
           <Sub
             title="Agregar Libro"
@@ -45,11 +43,11 @@ const Home = () => {
               setLibros([]);
             }}
           ></Sub>
-          {libros.map((libro) => (
+          {libros.map((projecto) => (
             <Carts
-              key={libro.ID}
-              title={libro.Archivo}
-              image={libro.Imagen}
+              key={projecto.idProject}
+              title={projecto.projectDesc}
+              image={""}
             ></Carts>
           ))}
         </div>
